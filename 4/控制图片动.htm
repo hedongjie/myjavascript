@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        ul{
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+        li {
+            float: left;
+        }
+        img {
+           
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a href="1" title="1"><img src="./images/1.png" alt="" /></a></li>
+        <li><a href="2" title="2"><img src="./images/2.png" alt="" /></a></li>
+        <li><a href="3" title="3"><img src="./images/3.png" alt="" /></a></li>
+        <li><a href="4" title="4"><img src="./images/4.png" alt="" /></a></li>
+    </ul>
+    <div>
+        <input type="button" value="<<" />
+        <input type="button" value=">>" />
+    </div>
+    <script type="text/javascript">
+        var arr = [];
+        var getItem = document.getElementsByTagName('img');
+        alert(getItem.length);
+        var onBtn = document.getElementsByTagName('input');
+        onBtn[0].onclick = function () {
+        for (var i = 0; i < getItem.length; i++) {
+                arr.push(getItem[i].getAttribute('src'));
+         };
+        arr.push(getItem[0].getAttribute('src')); //将第零个弹到尾部
+        arr.shift();//将第一个弹出
+       // alert(arr);
+            for (var i = 0; i < getItem.length; i++) {
+                getItem[i].src = arr[i];
+            };
+        }
+ onBtn[1].onclick = function () {
+        for (var i = 0; i < getItem.length; i++) {
+                arr.push(getItem[i].getAttribute('src'));
+         };
+        arr.unshift(getItem[getItem.length-1].getAttribute('src')); //将第零个弹到尾部
+        //alert(arr);
+        arr.pop();//将第一个弹出
+       // alert(arr);
+            for (var i = 0; i < getItem.length; i++) {
+                getItem[i].src = arr[i];
+            };
+        }
+    </script>
+</body>
+</html>

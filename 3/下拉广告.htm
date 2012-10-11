@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #ad {
+            width: 500px;
+            height: 200px;
+            background: red;
+            margin: 0 auto;
+            position: relative;
+            top: -208px;
+        }
+        .link {
+            background: red;
+            width: 100px;
+            height: 30px;
+            text-align:center;
+            display: block;
+            line-height:30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="ad"></div>
+    <a class="link" href="javascript:;">打开</a>
+    <script type="text/javascript">
+var getAd = document.getElementById('ad');
+var getBtn = document.getElementsByTagName('a')[0];
+var power = false;
+var iNum = - 208;
+getBtn.onclick = function() {
+	if (power) {
+		getBtn.innerHTML = '打开';
+		power = false;
+		getUp();
+	} else {
+		getBtn.innerHTML = '收缩';
+		getDown();
+		power = true;
+	}
+}
+setTimeout(function() {
+	time = setInterval(function() {
+		iNum += 1;
+		getAd.style.top = iNum + 'px';
+		document.title = iNum;
+		if (iNum == 0) {
+			clearInterval(time);
+			setTimeout(function() {
+				move();
+			},
+			300);
+		}
+	},
+	30);
+},
+30);
+
+function move() {
+	time = setInterval(function() {
+		iNum -= 1;
+		getAd.style.top = iNum + 'px';
+		document.title = iNum;
+		if (iNum == - 208) {
+			clearInterval(time);
+		}
+	},
+	30);
+}
+function getUp() {
+	clearInterval(time);
+	move();
+}
+function getDown() {
+	clearInterval(time); //重点在这里清除定时器
+	time = setInterval(function() {
+		iNum += 1;
+		getAd.style.top = iNum + 'px';
+		document.title = iNum;
+		if (iNum == 0) {
+			clearInterval(time);
+		}
+	},
+	30);
+}
+
+     
+    </script>
+</body>
+</html>

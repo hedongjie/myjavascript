@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+    <input type="text" value ="0" />
+    <script type="text/javascript">
+        var getInput = document.getElementsByTagName('input');
+        setInterval(function () {
+                getInput[0].value ++;
+                if(getInput[0].value == 4) {
+                    getInput[0].value = 0;
+                }
+                },300);
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+
+
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+     
+        #rollwrap {
+            position: relative;
+            width: 30px;
+            border: 1px solid #ccc;
+            float: left;
+        }
+        #roll {
+            height: 30px;
+            width: 29px;
+            background: yellow;
+            position: absolute;
+        }
+        #content {
+            position: absolute;
+        }
+        #contentwrap {
+            position: relative;
+            width: 300px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div id="contentwrap">
+    <div id="content">asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br /> asdasdasdasdasdasdasdasdasdasdasd<br /> asdasdasdasdasdasdasdasdasdasdasd<br /> asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />    asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />asdasdasdasdasdasdasdasdasdasdasd<br />
+    </div>
+    </div>
+    <script type="text/javascript">
+        function scroll(){
+            this.contentHeight = document.getElementById('content');
+            this.contetwrap = document.getElementById('contentwrap');
+            this.contetwrap.style.height = (this.contentHeight.offsetHeight/2) + "px";
+            this.contetwrap.style.overflow = 'hidden';
+            this.rollwrap = document.createElement('div');
+            this.roll = document.createElement('div');
+            this.rollwrap.appendChild(this.roll)
+            this.roll.id = 'roll';
+            this.rollwrap.id = 'rollwrap';
+            this.rollwrap.style.height =this.contetwrap.offsetHeight + "px";
+            that = this;
+            //this.
+            document.body.appendChild(this.rollwrap);
+            this.maxHeight = this.rollwrap.offsetHeight - this.roll.offsetHeight;
+            this.roll.onmousedown = that.scrollRoll;
+        }
+scroll.prototype.scrollRoll = function (ev) {
+            this.oEvent = ev || window.event;
+            this.disY = this.oEvent.clientY - this.offsetTop;
+            document.onmousemove = this.onmousemove = that.scrollMove;
+}
+scroll.prototype.scrollMove = function (ev) {
+            this.oEvent = ev || window.event;
+            this.t = this.oEvent.clientY - this.disY;
+            if(this.t < 0) {
+                this.t = 0;
+            } else if(this.t > that.maxHeight){
+                this.t =  that.maxHeight;
+            }
+            this.scale = this.t / that.maxHeight;
+            that.roll.style.top =  this.t + 'px';
+            that.contentHeight.style.top = (that.contetwrap.offsetHeight -that.contentHeight.offsetHeight) * this.scale + 'px';
+            console.log(this.scale);
+             that.roll.onmouseup = that.scrollUp;
+}
+scroll.prototype.scrollUp = function () {
+    this.onmousedown = this.onmousemove = null;
+}
+
+var scroll = new scroll();
+    </script>
+</body>
+</html>

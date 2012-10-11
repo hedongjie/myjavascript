@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    
+    <script type="text/javascript">
+var s = 'abs';
+String.prototype.lastStr = function(str) {
+	if (this.charAt(this.length - 1) == str) {
+		alert(str + '是' + this + '最后一个字符');
+	} else {
+		alert(str + '不是' + this + '的最后一个字符');
+	}
+}
+s.lastStr('s');
+    </script>
+</body>
+</html>

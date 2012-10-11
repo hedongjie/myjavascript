@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        img {
+            position: absolute;
+            left: 0;
+            top:0;
+        }
+    </style>
+</head>
+<body>
+    <img id="baozi" src="./baizi.gif" alt="" />
+    <script type="text/javascript">
+        var getImg = document.getElementById('baozi');
+        var timer = null;
+        document.onclick = function(event) {
+            var oEvent = event ||window.event;
+            startMove(oEvent.clientX,oEvent.clientY);
+        }
+function startMove(getX,getY) {
+    clearInterval(timer);
+    timer = setInterval( function (){
+            var iCur = null;
+            iCur={left: parseInt(css(getImg,'left')),top: parseInt(css(getImg,'top'))};//json存值
+            var iSpeed = (getX - iCur.left) /8;
+            var iSpeed = iSpeed > 0 ? Math.ceil(iSpeed):Math.floor(iSpeed);
+            var iSpeed2 = (getY - iCur.top) /8;
+            var iSpeed2 = iSpeed2 > 0 ? Math.ceil(iSpeed2):Math.floor(iSpeed2);
+            if(iCur.left == getX && iCur.top == getY) {
+                clearInterval(timer);
+            } else {
+            getImg.style.left = iCur.left + iSpeed + 'px';
+            getImg.style.top = iCur.top + iSpeed2 + 'px';
+            }
+    },30);
+}
+function css(obj,attr) {
+    if(obj.currentStyle) {
+        return obj.currentStyle[attr];
+    } else {
+        return getComputedStyle(obj,false)[attr];
+    }
+}
+    </script>
+</body>
+</html>

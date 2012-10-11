@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<!--野田佳彦:抗议中国游行烧日本国旗-->
+    <textarea></textarea>
+    <textarea></textarea>
+    <input type="button" value="过滤" />
+    <script type="text/javascript">
+        var text= document.getElementsByTagName('textarea');
+        var btn = document.getElementsByTagName('input');
+        var strr='*';
+        btn[0].onclick = function () {
+            var re =  new RegExp('野田佳彦|中国|日本','g')
+                text[1].value = text[0].value.replace(re,function(str) {
+                        return toStart(str);
+                        });
+            function toStart(str) {
+                var result = '';
+                for(var i=0; i< str.length;i++) {
+                    result +='*';
+                }
+                return result;
+            }
+        }
+    </script>
+</body>
+</html>

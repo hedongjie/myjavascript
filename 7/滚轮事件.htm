@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+#box { width: 100px; height: 100px; background: red; }
+</style>
+<script>
+/*
+	ie/chrome : onmousewheel [FF下不报错]
+		event对象：wheelDelta
+			上：120
+			下：-120
+	
+	FF/DOMMouseScroll
+		DOM事件 : 以DOM开头的事件叫做DOM事件，他必须在绑定中执行
+		event对象：detail
+			上：-3
+			下：3
+			
+	绑定事件取消:event对象下 preventDefault();
+*/
+</script>
+</head>
+
+<body style="height: 2000px;">
+    <div id="box"></div>
+    <script type="text/javascript">
+        var box = document.getElementById('box');
+        //box.onmousewheel = function (event) {
+        //    var oEvent = event || window.event;
+        //alert(oEvent.wheelDelta);//IE上120 下-120
+        //}
+box.onmousewheel = mouseScroll;
+box.addEventListener('DOMMouseScroll',mouseScroll,false);
+function move (event) {
+    var oEvent = event || window.event;
+    alert(oEvent.detail) //上-3 下是3
+}
+function mouseScroll (event) {
+    var oEvent = event || window.event;
+    var iBtn = true;
+    if(event.wheelDelta) {
+        iBtn = event.wheelDelta > 0 ? true : false; //IE 向上
+    } else {
+        iBtn = event.detail < 0 ? true : false; //FF 向上
+    }
+    if(iBtn) {//true向上false向下
+        box.style.height = box.offsetHeight - 10 + 'px';
+    } else {
+        box.style.height = box.offsetHeight + 10 + 'px'
+    }
+    if(event.preventDefault) {
+        event.preventDefault();
+    }
+    return false;
+}
+    </script>
+</body>
+</html>

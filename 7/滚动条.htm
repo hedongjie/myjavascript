@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+    <style type="text/css">
+        #scrollbar {
+            height: 500px;
+            width: 30px;
+            background: green;
+            border-radius: 2px;
+            position: absolute;
+        }
+        #scrollcake {
+            width: 30px;
+            height: 30px;
+            background: red;
+            position: absolute;
+        }
+        #content {
+           
+            background: blue;
+            position: absolute;
+            left: 40px;
+            top: 10px;
+            opacity: 0; 
+            filter: alpha('opacity=30');
+        }
+    </style>
+</head>
+<body>
+    <div id="scrollbar">
+        <div id="scrollcake"></div>
+    </div>
+    <div id="content"></div>
+    <script type="text/javascript">
+        new function () {
+            var scrollcake = document.getElementById('scrollcake');
+            var scrollbar = document.getElementById('scrollbar');
+            var content = document.getElementById('content');
+            var maxheight = scrollbar.offsetHeight - scrollcake.offsetHeight;
+            scrollcake.onmousedown = function (event) {
+                var oEvent = event || window.event;
+                var disY = oEvent.clientY - this.offsetTop;
+                console.log(oEvent.clientY +'-'+this.offsetTop);
+                document.onmousemove = function (event) {
+                    var oEvent = event || window.event;
+                    var topHeight =  oEvent.clientY - disY;
+                    console.log(topHeight);
+                    if(topHeight <= 0) {
+                        topHeight = 0;
+                       //console.log(scrollbar.offsetHeight);
+                    } else if(topHeight >= maxheight ) {
+                        topHeight = maxheight ;
+                    }
+                    //取比例
+                    var isCale = topHeight / maxheight;
+                    document.title = isCale;
+                    scrollcake.style.top =topHeight + 'px';
+                    content.style.width = 500 * isCale + 'px';
+                    content.style.height =500 * isCale +'px';
+                    console.log(content.style.opacity);
+                    if(content.style.opacity == 'undefined') {
+                        content.style.filter = 'alpha(opacity='+ (isCale * 100) +')';
+                    } else {
+                        content.style.opacity = isCale;
+                    }
+                }
+                document.onmouseup = function () {
+                    document.onmousemove = document.onmouseup = null;
+                }
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>

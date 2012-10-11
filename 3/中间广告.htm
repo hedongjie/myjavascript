@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #wrapper {
+            width: 960px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+        }
+        #header {
+            height: 150px;
+            background: blue;
+        }
+        #banner {
+            height: 0;
+            border: 1px solid red;
+            position: relative;
+            background: #ddeecc;
+
+        }
+        #footer {
+            height: 200px;
+            background: green;
+        }
+        #close {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header"></div>
+        <div id="banner"><a id="close" href="javascript:;">关闭</a></div>
+        <div id="footer"></div>
+    </div>
+    <script type="text/javascript">
+
+        function upDown (up, down) {
+            
+        }
+        iSpeed = 0;
+        var move = null;
+        new function () {
+            var getBanner = document.getElementById('banner');
+            var getClose = document.getElementById('close');
+             move = setInterval(function () {
+                    iSpeed +=3;
+                    getBanner.style.height = iSpeed + 'px';
+                    if(parseInt(getBanner.style.height) > 150) {
+                        clearInterval(move);
+                        setTimeout(function () {
+                      iSpeed -=3;
+                      getBanner.style.height = iSpeed + 'px';
+                       if(parseInt(getBanner.style.height) < 0) {
+                            clearInterval(move);
+                    }
+                     },30);
+                    }
+                    },30);
+             
+             getClose.onclick = function () {
+                 move = setInterval(function () {
+                         iSpeed -=3;
+                         getBanner.style.height = iSpeed + 'px';
+                         if(parseInt(getBanner.style.height) < 0) {
+                            clearInterval(move);
+                    }
+                         },30);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script type="text/javascript">
+//求合
+Array.prototype.sum = function() {
+	var result = 0;
+	for (var i = 0; i < this.length; i++) {
+		result += this[i];
+	}
+	return result;
+}
+//求最大
+Array.prototype.max = function() {
+	var max = this[0];
+	var len = this.length;
+	for (var i = 1; i < len; i++) {
+		if (this[i] > max) {
+			max = this[i]
+		}
+	}
+	return max;
+}
+    </script>
+</body>
+</html>

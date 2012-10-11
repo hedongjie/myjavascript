@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+    <style type="text/css">
+        body {
+        
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0 auto;
+            width: 300px;
+            position: absolute;
+            left : 300px;
+            top: 200px;
+        }
+        li{
+            float: left;
+            position: absolute;
+          
+        }
+        img:hover {
+          cursor:url(./images/arr_left.cur),default;
+        }
+    </style>
+</head>
+<body style="height:2000px">
+    <ul>
+    	<li><img src="./images/1.jpg" alt="1" /></li>
+    	<li><img src="./images/2.jpg" alt="2" /></li>
+    	<li><img src="./images/3.jpg" alt="3" /></li>
+    	<li><img src="./images/4.jpg" alt="4" /></li>
+    	<li><img src="./images/5.jpg" alt="5" /></li>
+    	<li><img src="./images/6.jpg" alt="6" /></li>
+    </ul>
+    <script type="text/javascript">
+var getImg = document.getElementsByTagName('img');
+var arr = [];
+var getWidth;
+var mouse;
+for (var i = 0; i < getImg.length; i++) {
+	arr.push(getImg[i].getAttribute('src'));
+	getImg[i].onmousemove = function(ev) {
+        var oEvent = ev || event;
+        //这样不管元素在哪里都可以
+        mouse = oEvent.clientX - getLeft(getImg[0]);//存入鼠标位置去除offsetLeft
+		getWidth = getImg[0].offsetWidth / 2;
+        if (mouse > getWidth) {
+			this.style.cursor = 'url(./images/arr_right.cur),default';
+        } else if (mouse < getWidth) {
+			this.style.cursor = 'url(./images/arr_left.cur),default';
+		}
+		//console.log(oEvent.clientX + '-' + getWidth);
+    }
+    //TODO 做完在考虑一下这里。
+	getImg[i].onclick = function() {
+		if (mouse > getWidth) {
+			arr.push(arr.shift()); //将第一个弹到尾
+			for (var i = 0; i < getImg.length; i++) {
+				getImg[i].src = arr[i];
+			};
+		} else if (mouse < getWidth) {
+			arr.unshift(arr.pop()); //将必弹到第一个
+			for (var i = 0; i < getImg.length; i++) {
+				getImg[i].src = arr[i];
+			};
+		}
+		console.log(arr);
+	}
+}
+//元素到屏幕的绝对值
+function getLeft (obj) {
+    var result = 0;
+    while (obj) {
+        result += obj.offsetLeft;
+        obj = obj.offsetParent;
+    }
+    return result;
+}
+    </script>
+</body>
+</html>

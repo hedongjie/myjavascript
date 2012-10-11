@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>无标题文档</title>
+<style>
+body,ul,p{margin:0;padding:0;}
+img{display:none;float:left;}
+#box{width:314px;height:148px;margin:30px auto;font-family:Arial, Helvetica, sans-serif;}
+#list2{display:none;}
+#box div{width:292px;height:104px;border:1px solid #c6c6c6;padding:10px 0 0 10px; display:none;}
+#top{height:30px;}
+span{display:block;width:80px;height:30px;border:1px solid #c6c6c6;float:left;font-size:14px;line-height:30px;text-align:center;color:#737373;border-bottom:none;}
+.show{width:80px;height:30px;border:1px solid #c6c6c6;border-bottom:none;color:#000;background:#fff;}
+ul {float:left;width:170px;height:96px;}
+li{width:170px;height:31px;font-size:12px;line-height:30px;margin:0 0 1px 1px;background:#dee7e7;list-style:none;}
+li a{text-decoration:none;color:#8c9191;padding-left:7px;}
+.active{background:#636363;display:block;}
+.active a{color:#fff;}
+</style>
+<script>
+window.onload=function(){
+var oBox=document.getElementById('box');
+var aDiv=oBox.getElementsByTagName('div');
+var aSpan=oBox.getElementsByTagName('span');
+
+var n=0;
+var iNum=0;
+
+var timer=null;
+
+function tab(obj){
+	
+	var aImg=obj.getElementsByTagName('img');
+	var aLi=obj.getElementsByTagName('li');
+	
+	for(var i=0; i<aLi.length; i++){
+	
+		aLi[i].index=i;
+		
+		aLi[i].onclick=function(){
+		
+			iNum=this.index;
+			
+			doMove();
+				
+			
+		};
+			
+	}
+		
+	function doMove(){
+	
+		for(var i=0; i<aLi.length; i++){
+		
+			aLi[i].className='';
+			aImg[i].className='';
+			
+		}
+		
+		aLi[iNum].className='active';
+		aImg[iNum].className='active';
+		
+	}
+	
+	clearInterval(timer);
+	
+	timer=setInterval(function(){
+	
+		iNum++;
+				
+		if(iNum==3){
+			
+			iNum=0;
+			
+			doMove();
+			
+			clearInterval(timer);
+			
+			n++;
+			
+			n%=2; // 0 1
+			
+			for(var i=0; i<aSpan.length; i++){
+			
+				aSpan[i].className='';
+				aDiv[i].style.display='none';	
+				
+			}
+			
+			aSpan[n].className='show';
+			aDiv[n].style.display='block';
+			
+			tab(aDiv[n]);
+			
+		}else{
+			
+			doMove();
+			
+		}
+		
+	},500);
+	
+}
+
+tab(aDiv[0]);
+
+/*for(var i=0; i<aDiv.length; i++){
+
+	tab(aDiv[i]);
+	
+}
+*/
+
+oBox.onmouseover=function(){
+
+	clearInterval(timer);	
+	
+};
+
+oBox.onmouseout=function(){
+
+	tab(aDiv[n]);	
+	
+};
+
+for(var i=0; i<aSpan.length; i++){ //控制上面的标题
+	
+	aSpan[i].index=i;
+	
+	aSpan[i].onclick=function(){
+		
+		iNum=0;
+		
+		n=this.index;
+	
+		for(var i=0; i<aSpan.length; i++){
+		
+			aSpan[i].className='';
+			aDiv[i].style.display='none';	
+			
+		}
+		
+		this.className='show';
+		aDiv[this.index].style.display='block';
+	
+	};
+	
+}
+
+};
+
+
+</script>
+</head>
+
+<body>
+<div id="box">
+	<p id="top">
+		<span class="show">专题</span>
+		<span>视频</span>
+	</p>
+	<div style="display:block" id="bottom">
+		<img class="active"  src="image/list1.jpg" alt="" />
+		<img src="image/list2.jpg" alt="" />
+		<img src="image/list1.jpg" alt="" />
+		<ul>
+			<li class="active" ><a href="#">奇虎360纽交所上市</a></li>
+			<li><a href="#">2011年IT领袖峰会</a></li>
+			<li><a href="#">CCBN召开 助三网融合</a></li>
+		</ul>
+	</div>
+	<div id="bottom1">
+		<img class="active" src="image/list2.jpg" alt="" />
+		<img src="image/list1.jpg" alt="" />
+		<img src="image/list2.jpg" alt="" />
+		<ul>
+			<li class="active" ><a href="#">奇虎360纽交所上市</a></li>
+			<li><a href="#">2011年IT领袖峰会</a></li>
+			<li><a href="#">CCBN召开 助三网融合</a></li>
+		</ul>
+	</div>
+	
+</div>
+</body>
+</html>

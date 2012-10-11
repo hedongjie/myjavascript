@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+    <input type="text" id="txt"/>
+    <input type="button" id="btn" value="确定" />
+    <script type="text/javascript">
+        var getTxt = document.getElementById('txt');
+        var getBtn = document.getElementById('btn');
+        getBtn.onclick = function () {
+            if(isNaN(getTxt.value)){
+            alert("请输入数字");
+            }else if(parseInt(getTxt.value) >=10 && parseInt(getTxt.value) <= 99) {
+                alert("你输入的是两位数");
+            }else{
+                alert("你输入的是"+ getTxt.value.length+"位数");
+            }
+        }
+    </script>
+</body>
+</html>

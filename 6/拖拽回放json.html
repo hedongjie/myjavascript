@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+#box { width:100px; height: 100px; position: absolute; background: red; left: 0; border-radius: 50px; }
+</style>
+</head>
+
+<body>
+	<input type="button" id="input1" value="回放" />
+    <div id="box"></div>
+    <script type="text/javascript">
+        var box = document.getElementById('box');
+        var onBtn = document.getElementsByTagName('input')[0];
+        var arr = [];
+        var timer = null;
+        box.onmousedown = function (event) {
+            var oEvent = event || window.event;
+            starX = oEvent.clientX - this.offsetLeft; //鼠标在元素的位置
+            starY = oEvent.clientY - this.offsetTop;
+
+           arr.push({left:this.offsetLeft,top:this.offsetTop});//json 开始位置
+            //console.log(arr);
+            document.onmousemove = function (event) {
+                var oEvent = event || window.event;
+                box.style.left = oEvent.clientX - starX + 'px'; //移动距离
+                box.style.top = oEvent.clientY - starY + 'px';
+
+                arr.push({left:box.offsetLeft,top:box.offsetTop});
+                  console.log(arr);
+            }
+            document.onmouseup = function () {
+                document.onmousemove = document.onmouseup = null;
+            }
+            return false; //FF 空 bug
+        }
+        onBtn.onclick = function () {
+            timer = setInterval( function () {
+                    if(arr.length) {//存在值
+             //       console.log(arr);
+                    var pos = arr.pop();
+                    box.style.left = pos.left + 'px';
+                    box.style.top = pos.top + 'px';
+                    } else {
+                        clearInterval(timer);
+                    }
+                },30);
+        }
+    </script>
+</body>
+</html>

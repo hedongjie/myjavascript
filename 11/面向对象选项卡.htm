@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #tab {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+        #tab li{
+            width: 100px;
+            height: 30px;
+            float: left;
+            line-height: 30px;
+            text-align: center;
+        }
+        #tab .active {
+             background: red;
+        }
+        #content div {
+            border: 1px solid #ccc;
+            width: 400px;
+            height: 300px;
+            display: none;
+        }
+       #content .show {
+            display: block;
+        }
+        #wrapper {
+            border: 1px solid #ccc;
+            width: 400px;
+            background: green;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <ul id="tab">
+        <li class="active">第一个</li>
+        <li>第一个</li>
+        <li>第一个</li>
+        <li>第一个</li>
+    </ul>
+    <div id="content">
+    <div class="show">1111</div>
+    <div>222</div>
+    <div>333</div>
+    <div>444</div>
+</div>
+</div>
+    <script type="text/javascript">
+//面向对象
+function Tab(name) {
+    this.wrapper = document.getElementById('wrapper');
+	this.item = document.getElementById(name).getElementsByTagName('li');
+	this.content = document.getElementById('content').getElementsByTagName('div');
+    this.iNum = 0;
+	for (var i = 0; i < this.item.length; i++) {
+		this.item[i].index = i;
+		that = this; //that指对象
+		this.item[i].onclick = function() {
+			that.show(this); //这里指当前点击的
+		}
+    }
+    this.wrapper.onmouseover = function () {
+        that.clear();
+    }
+     this.wrapper.onmouseout = function () {
+        that.autoPlay();
+    }
+}
+//原形添加方法
+Tab.prototype.show = function(current) {
+	//这里this指对象
+	for (var i = 0; i < this.item.length; i++) {
+		this.item[i].className = '';
+		this.content[i].className = '';
+	}
+	//这里this指当前点击所有要传进来
+	current.className = 'active';
+	this.content[current.index].className = 'show'; //this.content属性对象索引属性按钮
+}
+Tab.prototype.autoPlay = function() {
+	that = this;//setInterval拽向window用来更改指向
+	this.timer = setInterval(function() {
+		that.iNum++;
+		if (that.iNum == 4) {
+			that.iNum = 0;
+		}
+		for (var i = 0; i < that.item.length; i++) {
+			that.item[i].className = '';
+			that.content[i].className = '';
+		};
+		that.item[that.iNum].className = 'active';
+		that.content[that.iNum].className = 'show';
+	},800);
+}
+Tab.prototype.clear = function () {
+    clearInterval(this.timer);
+}
+
+var p1 = new Tab('tab');
+p1.autoPlay();
+//p1.clear();
+    </script>
+</body>
+</html>

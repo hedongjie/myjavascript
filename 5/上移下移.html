@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+
+</head>
+
+<body>
+	<ul id="ul1">
+    	<li>111111 <input type="button" value="上移" /><input type="button" value="下移" /></li>
+    	<li>222222 <input type="button" value="上移" /><input type="button" value="下移" /></li>
+    	<li>333333 <input type="button" value="上移" /><input type="button" value="下移" /></li>
+    	<li>444444 <input type="button" value="上移" /><input type="button" value="下移" /></li>
+    	<li>555555 <input type="button" value="上移" /><input type="button" value="下移" /></li>
+    	<li>666666 <input type="button" value="上移" /><input type="button" value="下移" /></li>
+    </ul>
+</body>
+<script type="text/javascript">
+    var getUl = document.getElementById('ul1' );
+    var getItem = getUl.getElementsByTagName('input');
+    for (var i = 0; i < getItem.length; i++) {
+        getItem[i].index = i;
+        getItem[i].onclick = function () {
+            if(this.index % 2 ==0) { //第一个为0第二个为1
+                //alert(1);
+               
+                if(this.parentNode != first(getUl)) {
+                    getUl.insertBefore(this.parentNode,pre(this.parentNode));
+                } else {
+                    alert('到头了')
+                }
+
+            } else {
+                if(this.parentNode != last(getUl)) {
+                    getUl.insertBefore(next(this.parentNode),this.parentNode);
+                } else {
+                    alert('到尾了');
+                }
+
+            }
+        }
+    }
+	function first(obj) {
+		return obj.firstElementChild || obj.firstChild;
+	}
+	function last(obj) {
+		return obj.lastElementChild || obj.lastChild;
+	}
+	function pre(obj) {
+		return obj.previousElementSibling || obj.previousSibling;
+	}
+	function next(obj) {
+		return obj.nextElementSibling || obj.nextSibling;
+	}
+
+</script>
+</html>

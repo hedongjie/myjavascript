@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+ ul {margin: 0; padding: 0;}
+ li {float: left; margin: 0 2px; list-style: none;}
+</style>
+</head>
+
+<body>
+  <ul>
+    <li><img src="images/1.png"></li>
+    <li><img src="images/2.png"></li>
+    <li><img src="images/3.png"></li>
+    <li><img src="images/4.png"></li>
+  </ul>
+  <br clear='all'>
+  <input type="button" value="<<" />
+  <input type="button" value=">>" />
+</body>
+</html>
+
+<script>
+    new function () {
+        var getImg = document.getElementsByTagName('img');
+        var oInput = document.getElementsByTagName('input');
+        var arr = [];
+        for (var i = 0; i < getImg.length; i++) {
+            arr.push(getImg[i].getAttribute('src'));
+        }
+        oInput[0].onclick = function () {
+            arr.push(arr.shift())//将头push到尾
+            for (var i = 0; i < getImg.length; i++) {
+                getImg[i].src = arr[i];
+            };
+        }
+         oInput[1].onclick = function () {
+            arr.unshift(arr.pop())//从头unshift尾的
+            for (var i = 0; i < getImg.length; i++) {
+                getImg[i].src = arr[i];
+            };
+        }
+    }
+</script>

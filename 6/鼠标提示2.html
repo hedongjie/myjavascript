@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+* { line-height: 24px; }
+#div1 { border: 1px solid red; padding: 10px; position: absolute; display: none; background: #FFF; }
+</style>
+
+</head>
+
+<body>
+	<ul>
+    	<li><a href="">7月份CPI涨1.8% 创30个月新低</a></li>
+        <li><a href="">"海葵"进入安徽 黄山现12级大风</a></li>
+        <li><a href="">东莞塘厦治安队员夜拦路人办居住证</a></li>
+        <li><a href="">西安深圳济南福州启动赴台个人游</a></li>
+    </ul>
+    <div id="div1"></div>
+    <script type="text/javascript">
+        var item = document.getElementsByTagName('a');
+        var box = document.getElementById('div1');
+        for (var i = 0; i < item.length; i++) {
+            item[i].onmousemove = function (event) {
+                var oEvent = event || window.event;
+                box.innerHTML = this.innerHTML;
+                box.style.display = 'block';
+                box.style.left = oEvent.clientX + 10 + 'px';
+                box.style.top = oEvent.clientY + 10 + 'px';
+            }
+            item[i].onmouseout = function () {
+                box.style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #kobe {
+            opacity: 0.3;
+            filter: alpha(opacity=30);
+        }
+        img {
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <img id="kobe" src="./kobe.jpg" alt="" />
+    <script type="text/javascript">
+        var getImg = document.getElementById('kobe');
+        var timer = null;
+         var opacity = 30;
+        getImg.onmouseover = function () {
+            startMove(100);
+        }
+        getImg.onmouseout = function () {
+            startMove(30);
+        }
+        function startMove (iTarget) {
+            clearInterval(timer);
+            var iSpeed = 0;
+           
+            timer = setInterval( function () {
+            iSpeed = opacity < iTarget ? iSpeed = 10 : iSpeed = -10;
+            if(opacity == iTarget) {
+                clearInterval(timer);
+               } else {
+                opacity += iSpeed;
+                getImg.style.opacity = opacity/100;
+                getImg.style.filter ='alpha(opacity='+opacity+')';
+               }
+            },30);
+        }
+    </script>
+</body>
+</html>

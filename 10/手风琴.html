@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>手风琴效果 - 妙味课堂 - www.miaov.com</title>
+<style>
+* { padding: 0; margin: 0; }
+li { list-style: none; }
+body { background: #f6f9fc; }
+
+div { width: 660px; height: 254px; margin: 50px auto 0; overflow:hidden; }
+ul { width: 3300px; height: 254px; }
+ul li { width: 22px; height: 254px; float: left; position: relative; overflow:hidden; }
+.active { width: 550px; }
+ul span { width: 21px; height: 244px; padding-top: 10px; border-right: 1px solid #fff; position: absolute; top: 0; right: 0; color: #fff; font-size: 12px; text-align: center; cursor: pointer; }
+ul img { width: 550px; height: 254px; }
+.bg0 { background: #00FFCC; }
+.bg1 { background: #636363; }
+.bg2 { background: #3d7fbb; }
+.bg3 { background: #5ca716; }
+.bg4 { background: #f28b24; }
+.bg5 { background: #7c0070; }
+</style>
+
+<script>
+window.onload = function(){
+	var aSpan = document.getElementsByTagName('span');
+	var aLi = document.getElementsByTagName('li');
+	var timer=null;
+	
+	for(var i=0;i<aSpan.length;i++){
+		aSpan[i].index = i;
+		aSpan[i].onmouseover = function(){
+			
+				
+				var _this = this;
+			
+				clearInterval(timer);
+				timer=setInterval(function (){
+					var sum=0;
+					
+					for(i=0;i<aLi.length;i++)
+					{
+						if(i!=_this.index)
+						{
+							var iSpeed=(22-aLi[i].offsetWidth)/8;
+							iSpeed=iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
+							
+							aLi[i].style.width=aLi[i].offsetWidth+iSpeed+'px';
+							sum+=aLi[i].offsetWidth;
+						}
+					}
+					
+					aLi[_this.index].style.width=660-sum+'px';
+				}, 30);
+			
+		};
+	}
+};
+</script>
+</head>
+
+<body>
+
+<div id="show1">
+    <ul>
+        <li class="active">
+            <span class="bg0">这是第一个</span>
+            <img src="images/t103_27.jpg" />
+        </li>
+        <li>
+            <span class="bg1">这是第二个</span>
+            <img src="images/t103_26.jpg" />
+        </li>
+        <li>
+            <span class="bg2">这是第三个</span>
+            <img src="images/t103_29.jpg" />
+        </li>
+        <li>
+            <span class="bg3">这是第四个</span>
+            <img src="images/t103_28.jpg" />
+        </li>
+        <li>
+            <span class="bg4">这是第五个</span>
+            <img src="images/tlh_29.jpg" />
+        </li>
+        <li>
+            <span class="bg5">这是第六个</span>
+            <img src="images/tlh_06.jpg" />
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+#box{width:400px;height:200px;border:1px solid #ccc; text-algin:center;font-weight:bold;font-family:Arial, Helvetica, sans-serif; text-align: center;}
+
+#box span {float: left; width: 20px; 30px;}
+.red {
+    color: red;
+}
+.blue{
+    color: blue;
+}
+.green {
+    color: green;
+}
+</style>
+
+<script>
+window.onload=function(){
+    var oInput = document.getElementsByTagName('input');
+    var getBox = document.getElementsByTagName('div');
+    var arr = ['red','green','blue'];
+    oInput[1].onclick = function () {
+        var arrValue = oInput[0].value.split('');//切分数组
+        for (var i = 0; i < arrValue.length; i++) {
+            getBox[0].innerHTML += '<span class="'+arr[i%3]+'">'+arrValue[i]+'</span>';//再次提醒模很有用
+        };
+    }
+};
+</script>
+</head>
+
+<body>
+
+<div id="box">
+</div>
+<br/>
+<input type="text" />
+<input type="button" value="提交"/>
+</body>
+</html>

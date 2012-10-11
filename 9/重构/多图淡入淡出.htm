@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #wrapper {
+            width: 518px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 1px;
+            height: 100px;
+        }
+        img {
+            width: 100px;
+            height: 100px;
+            opacity: 0.3;
+            filter:alpha(opacity=30);
+
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <img src="./kobe.jpg" alt="" />
+        <img src="./kobe.jpg" alt="" />
+        <img src="./kobe.jpg" alt="" />
+        <img src="./kobe.jpg" alt="" />
+        <img src="./kobe.jpg" alt="" />
+    </div>
+    <script type="text/javascript">
+        //获取所以图片
+    var getImg = document.getElementsByTagName('img');
+    //循环img
+    for (var i = 0; i < getImg.length; i++) {
+        getImg[i].opacity = 30; //自定义属性
+        getImg[i].onmouseover = function () {
+            //调用函数
+            startMove(this,100);
+        }
+        getImg[i].onmouseout = function () {
+             startMove(this,30);
+        }
+    }
+    function startMove (obj,iTarget) {
+        clearInterval(obj.timer);//多个运动用单独的
+        obj.timer = setInterval( function (){
+            var iSpeed = obj.opacity > iTarget ? iSpeed = -10 : iSpeed = 10;
+            if(obj.opacity == iTarget) {
+                clearInterval(obj.timer);
+            } else {
+                obj.opacity +=iSpeed;
+                obj.style.opacity = obj.opacity/100;//因为是小数
+                console.log(obj.opacity);
+                obj.style.filter = 'alpha(opacity='+obj.opacity+')';
+            }
+        },30);
+    }
+    </script>
+</body>
+</html>

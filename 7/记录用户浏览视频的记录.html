@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+* { margin: 0; padding: 0; }
+#div1 { border: 1px solid green; padding: 10px; background: #FFF; position: fixed; top:0; right: 10px; }
+#ul1 { margin: 50px; }
+</style>
+<script>
+window.onload = function() {
+	var oUl = document.getElementById('ul1');
+	var aLi = oUl.getElementsByTagName('li');
+	var oUl2 = document.getElementById('ul2');
+	var arr = [];
+	
+	if (getCookie('list')) {
+		var aList = getCookie('list').split(',');
+		arr = aList;
+		oUl2.innerHTML = '';
+		for (var i=0; i<aList.length;i++) {
+			var oLi = document.createElement('li');
+			oLi.innerHTML = aList[i];
+			oUl2.appendChild(oLi);
+		}
+	}
+	
+	for (var i=0; i<aLi.length; i++) {
+		aLi[i].onclick = function() {
+			if (!inArray(arr, this.innerHTML)) {
+				arr.push(this.innerHTML);
+			}
+			setCookie('list', arr, 5);
+			
+			var aList = getCookie('list').split(',');
+			oUl2.innerHTML = '';
+			for (var i=0; i<aList.length;i++) {
+				var oLi = document.createElement('li');
+				oLi.innerHTML = aList[i];
+				oUl2.appendChild(oLi);
+			}
+		}
+	}
+	
+	function inArray(arr, v) {
+		for (var i=0; i<arr.length; i++) {
+			if (arr[i] == v) {
+				return true;
+			}
+		}
+		return false;
+	}
+}
+
+function setCookie(key, value, t) {
+	var oDate = new Date();
+	oDate.setDate(oDate.getDate() + t);
+	document.cookie = key + '=' + encodeURI(value) + '; expires=' + oDate;
+}
+function getCookie(key) {
+	var arr1 = document.cookie.split('; ');
+	for (var i=0; i<arr1.length; i++) {
+		var arr2 = arr1[i].split('=');
+		if (arr2[0] == key) {
+			return decodeURI(arr2[1]);
+		}
+	}
+}
+function delCookie(key) {
+	setCookie(key, '', -1);
+}
+</script>
+</head>
+
+<body>
+	<ul id="ul1">
+    	<li>好声音后传</li>
+        <li>非常了得</li>
+        <li>非常静距离</li>
+        <li>我们约会吧</li>
+        <li>康熙来了</li>
+        <li>声动亚洲</li>
+    </ul>
+    <div id="div1">
+    	<h4>你的观看记录：</h4>
+    	<ul id="ul2">
+        </ul>
+    </div>
+</body>
+</html>

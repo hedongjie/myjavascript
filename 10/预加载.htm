@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #wrapper {
+            width: 476px;
+            height: 240px;
+            /*border: 1px solid #eee;*/
+            margin: 0 auto;
+        }
+        #content {
+            height: 240px;
+            width: 426px;
+            overflow: hidden;
+            border: 1px solid #ccc;
+            position: relative;
+            background: url(./images/loadingnew.gif) no-repeat center center;
+        }
+        #wrapper a{
+            display: inline-block;
+            height: 240px;
+            width: 24px;
+            outline: none;
+
+        }
+        #prev {
+            float: left;
+            background: url(./images/arrow-prev.png) center center no-repeat;
+        }
+        #next {
+            float: right;
+             background: url(./images/arrow-next.png) center center no-repeat;
+        }
+        #list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            position: absolute;
+        }
+        #content img {
+          width: 426px;
+            height: 240px;
+         display: block;
+        }
+        #list li {
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <a id="prev" href="javascript:;"></a>
+       
+        <a id="next" href="javascript:;"></a>
+         <div id="content">
+        <img src="" alt="" />
+        </div>
+    </div>
+    <script type="text/javascript">
+      var content = document.getElementById('content');
+        var contentImg = content.getElementsByTagName('img')[0];
+        var prev = document.getElementById('prev');
+        var next = document.getElementById('next');
+        var arr = ['http://www.idaocao.com/daocaoeditor/2009_image/201105/201151212624352.jpg',
+                    'http://www.cnnb.com.cn/pic/0/00/87/48/874854_528292.jpg',
+                    'http://pic.dbw.cn/0/03/75/21/3752149_928458.jpg',
+                    'http://www.zjol.com.cn/pic/0/03/53/42/3534230_456655.jpg',
+                    'http://image2.sina.com.cn/dy/o/2007-03-29/91d0d30f5429eda48df203ca681771a7.jpg',
+                    'http://img1.gtimg.com/sports/pics/hv1/49/132/861/56020234.jpg'
+                    ]
+                    var iNum = 0;
+                    var loadImg = new Image();
+                    function loading(){
+                     loadImg.src = arr[iNum];
+                     loadImg.onload = function(){
+                     contentImg.src = loadImg.src;
+                     }
+                }
+loading();
+prev.onclick = function () {
+    contentImg.src = '';
+    iNum++;
+    iNum%=arr.length;
+    loading();
+}
+next.onclick = function () {
+    contentImg.src = '';
+    iNum--;
+    if(iNum <= -1) {
+    iNum = 4;
+    }
+    loading();
+}
+    </script>
+</body>
+</html>

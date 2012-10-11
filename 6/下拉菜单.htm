@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            border: 1px solid #3EABFF;
+            width: 143px;
+            border-top: none;
+            display: none;
+        }
+        li {
+            text-align: center;
+            line-height: 26px;
+        }
+        li a {
+            color: #3eabff;
+            text-decoration: none;
+            display: block;
+        }
+        li a:hover {
+            background:#C3C3C3;
+        }
+        .color {
+            background: #c3c3c3;
+        }
+        input {
+            border: 1px #3EABFF solid;
+            height: 30px;
+            text-align:center;
+            line-height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" value="---请选择---"/>
+    <ul>
+    	<li><a href="javascript:;">上海</a></li>
+        <li><a href="javascript:;">北京</a></li>
+    	<li><a href="javascript:;">天津</a></li>
+    	<li><a href="javascript:;">云南</a></li>
+    	<li><a href="javascript:;">美国</a></li>
+    	<li><a href="javascript:;">英国</a></li>
+    </ul>
+
+    <script type="text/javascript">
+var list = document.getElementsByTagName('ul')[0];
+var link = document.getElementsByTagName('a');
+var inputText = document.getElementsByTagName('input')[0];
+var arr = [];
+var icur = null;
+var power = false;
+inputText.onclick = function(event) {
+	var oEvent = event || window.event;
+	list.style.display = 'block';
+	oEvent.cancelBubble = true; //阻止默认事件
+	power = true; //开关
+}
+for (var i = 0; i < link.length; i++) {
+	link[i].index = i;
+	arr.push(link[i].innerHTML); //存取link的值
+	link[i].onclick = function() {
+		for (var i = 0; i < link.length; i++) { //清空所有的
+			link[i].className = '';
+		};
+		inputText.value = this.innerHTML;
+		this.className = 'color';
+		icur = this.index; //当前点击的
+		return false;
+	}
+}
+document.onclick = function() {
+    list.style.display = 'none';
+    power = false;
+}
+
+inputText.onfocus = function() {
+	//键盘事件
+	this.onkeydown = function(event) {
+		var oEvent = event || window.event;
+		//console.log(arr);
+		if (oEvent.keyCode == 38) {
+			icur--;
+			if (icur < 0) {
+				icur = 0;
+			}
+		    updateColor();
+		}
+		if (oEvent.keyCode == 40) {
+			icur++;
+			if (icur >= arr.length) {
+				icur = arr.length - 1;
+			}
+		    updateColor();
+		}
+        if (oEvent.keyCode == 13) {
+			if (power) {
+				list.style.display = 'none';
+            } else {
+				list.style.display = 'block';
+			}
+            power = !power;
+		}
+	}
+}
+//滚动事件
+if(inputText.addEventListener) {
+    inputText.addEventListener('DOMMouseScroll',optional,false);
+  //  list.addEventListener('DOMMouseScroll',optional,false);
+}
+inputText.onmousewheel = optional;
+//list.onmousewheel = optional;
+function optional (event) {
+    var oEvent = event || window.event;
+    var roll = true;
+    //兼容IE FF CHROME
+    if(oEvent.wheelDelta ) {
+        roll = oEvent.wheelDelta  > 0 ? true : false;
+    } else {
+        roll = oEvent.detail < 0 ? true : false;
+    }
+    if(roll) {
+        icur--;
+        if(icur < 0) {
+            icur = 0;
+        }
+        updateColor();
+    } else {
+        icur ++;
+        if(icur>= arr.length) {
+            icur = arr.length - 1;
+        }
+        updateColor();
+    }
+    if(oEvent.preventDefault) { //阴止默认
+        oEvent.preventDefault();
+    }
+    return false; //IE 阴止默认
+}
+
+function updateColor () {
+        inputText.value = arr[icur];
+        for (var i = 0; i < link.length; i++) { //清空所有的
+				link[i].className = '';
+			};
+			link[icur].className = 'color';
+			inputText.value = arr[icur];
+}
+    </script>
+</body>
+</html>

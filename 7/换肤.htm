@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="./one.css" />
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <a class="one" href="javascript:;">one</a>
+            <a class="two" href="javascript:;">two</a>
+        </div>
+        <div id="main" class="clearfix">
+            <div class="main-left">
+                <h3 class="main-left-title">title-left</h3>
+                <div class="main-left-content">main-content-left</div>
+            </div>
+            <div class="main-right">
+                <h3 class="main-right-title">title-right</h3>
+                <div class="main-right-content">main-content-right</div>
+            </div>
+        </div>
+         <div class="banner">banner</div>
+        <div id="footer">footer</div>
+    </div>
+    <script type="text/javascript">
+        new function () {
+            var link = document.getElementsByTagName('link')[0];
+            var skin = document.getElementById('header').getElementsByTagName('a');
+            if(getCookie('skin')) {
+                link.href = getCookie('skin');
+            }
+            for (var i = 0; i < skin.length; i++) {
+                skin[i].index = i;
+                skin[i].onclick = function () {
+                    link.href = this.className + '.css';
+                    setCookie('skin',link.href,5);
+                }
+            }
+        }
+function setCookie(key,value,t) {
+	var oDate = new Date();
+	oDate.setDate(oDate.getDate() + t);
+	document.cookie = key + '= ' + encodeURI(value) +';expires=' + oDate;
+}
+
+function getCookie(key) {
+	var arr = document.cookie.split('; ');
+	for (var i=0; i<arr.length; i++) {
+		var arr2 = arr[i].split('=');
+		if (arr2[0] == key) {
+			return decodeURI(arr2[1]);
+		}
+	}
+}
+
+function delCookie(key) {
+	setCookie(key, '', -1);
+}
+
+    </script>
+</body>
+</html>

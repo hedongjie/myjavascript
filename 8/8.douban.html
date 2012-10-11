@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script src="jsonp.js"></script>
+<style>
+body { margin: 0; }
+#wrapper {  margin: 50px auto; width: 950px; }
+#list {}
+#list .b { width: 100%; height: 100px; overflow: hidden; border: 1px dashed #666; margin: 10px 0; padding: 5px; }
+#list .b img { float: left; }
+#list .b p { float: left; }
+
+#pages { border: 1px solid green; line-height: 30px; padding: 5px; text-align: center; }
+#pages a { padding: 5px; text-align: center; }
+#pages span { padding: 5px; text-align: center; background: green; color: #FFF; }
+</style>
+<script>
+var iMaxResults = 15;
+var sSearchKey = '';
+window.onload = function() {
+	var oBtn = document.getElementById('btn');
+	var oSearchKey = document.getElementById('searchKey');
+	
+	oBtn.onclick = function() {
+		sSearchKey = oSearchKey.value;
+		getData(1);
+	}
+}
+
+function getData(iStart) {
+	var tData = JTU('http://api.douban.com/book/subjects', {
+			'q' 		: 	sSearchKey,
+			'max-results'	:	iMaxResults,
+			'start-index'	:	iStart,
+			'alt'		:	'xd',
+			'callback'	:	'getSearchRs'
+		});
+		jsonp(tData);
+}
+
+function getSearchRs(json) {
+	console.log(json);
+	var oList = document.getElementById('list');
+	var oPages = document.getElementById('pages');
+	var aDataList = json.entry;
+	oList.innerHTML = '';
+	for (var i=0; i<aDataList.length; i++) {
+		var oDiv = document.createElement('div');
+		oDiv.className = 'b';
+		var oImg = document.createElement('img');
+		oImg.src = aDataList[i].link[2]['@href'];
+		oDiv.appendChild(oImg);
+		var oP = document.createElement('p');
+		var oA = document.createElement('a');
+		oA.href = 'javascript:;';
+		oA.innerHTML = '<h4>'+aDataList[i].title.$t+'</h4>';
+		oP.appendChild(oA);
+		
+		oDiv.appendChild(oP);
+		oList.appendChild(oDiv);		
+	}
+	
+	var iCountPages = Math.ceil(parseInt(json['opensearch:totalResults'].$t )/iMaxResults);
+	var iCurPage = Math.ceil(parseInt(json['opensearch:startIndex'].$t) / iMaxResults);
+	oPages.innerHTML = '';
+	for (var i=1; i<=iCountPages; i++) {
+		var oTag = null;
+		if (iCurPage == i) {
+			oTag = document.createElement('span');
+		} else {
+			oTag = document.createElement('a');
+			oTag.href = 'javascript:;';
+			oTag.index = i;
+			oTag.onclick = function() {
+				getData((this.index-1)*iMaxResults+1);
+			}
+		}
+		oTag.innerHTML = i;
+		oPages.appendChild(oTag);
+	}
+}
+function JTU(url, json) {
+	var arr = [];
+	for (var x in json) {
+		arr.push(x + '=' + json[x]);
+	}
+	if (arr.length) {
+		url += '?' + arr.join('&');
+	}
+	return url;
+}
+</script>
+</head>
+
+<body>
+	<div id="wrapper">
+    	<div id="header">
+        	<img src="lg_book_a10.png" />
+            <input type="text" id="searchKey" />
+            <input type="button" id="btn" value="搜索" />
+		</div>
+        
+        <div id="list"></div>
+        
+        <div id="pages"></div>
+    </div>
+</body>
+</html>

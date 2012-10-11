@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #box {
+            border: 1px solid  red;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    var count = 0;
+    var move = null;
+    var countX = 0;
+    var countY = 0;
+        document.onmousedown = function (ev) {
+            createDiv = document.createElement('div');
+            createDiv.id = 'box';
+            document.body.appendChild(createDiv);
+                var ev = ev || event;
+                //记录当前的位置
+                countX = ev.clientX;
+                countY = ev.clientY;
+                //document.title = countX+'-'+ countY;
+            document.onmousemove = function (ev) {
+                var ev = ev || event;
+                var resultX = ev.clientX - countX; //结果
+                var resultY = ev.clientY - countY; //结果
+                if(resultX < 0 && resultY < 0) {
+                     createDiv.style.left = ev.clientX + 'px';
+                     createDiv.style.top = ev.clientY + 'px';
+                     createDiv.style.width =Math.abs(resultX) + 'px';
+                     createDiv.style.height = Math.abs(resultY) + 'px';
+                } else if(resultX > 0 && resultY > 0) {
+                    createDiv.style.left =countX + 'px';
+                    createDiv.style.top = countY  + 'px';
+                    createDiv.style.width =(resultX) + 'px';
+                    createDiv.style.height = (resultY) + 'px';
+                } else if(resultX > 0 && resultY < 0) {
+                    createDiv.style.left =countX + 'px';
+                    createDiv.style.top = ev.clientY  + 'px';
+                    createDiv.style.width =Math.abs(resultX) + 'px';
+                    createDiv.style.height = Math.abs(resultY) + 'px';
+                }
+                else if(resultX < 0 && resultY > 0) {
+                    createDiv.style.left =ev.clientX + 'px';
+                    createDiv.style.top = countY  + 'px';
+                    createDiv.style.width =Math.abs(resultX) + 'px';
+                    createDiv.style.height = Math.abs(resultY) + 'px';
+                }
+            }
+            document.onmouseup = function () {
+                document.onmousemove = null;
+                /*move = setInterval( function () {
+                        count ++;
+                        getDiv.style.top = getDiv.offsetTop + count + 'px';
+                        document.title = getDiv.style.top;
+                        if(parseInt(getDiv.style.top) >= 400) {
+                            clearInterval(move);
+                        }
+                        },10);*/
+               
+            }
+        }
+    </script>
+</body>
+</html>

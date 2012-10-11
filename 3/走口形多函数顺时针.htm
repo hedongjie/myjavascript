@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #small {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position:relative;
+            left:0;
+        }
+        #wrapper {
+            width: 500px;
+            height:500px;
+            border: 1px solid #ccc;
+            margin: 0 auto;
+        }
+        input {
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="small"></div>
+         <input type="button" id="btn" value = "确定" />
+    </div>
+   
+<script type="text/javascript">
+//工具函数<!--{{{-->
+function $(idName) {
+	return document.getElementById(idName);
+}
+function css(obj, attr, val) {
+	if (val) {
+		obj.style[attr] = val;
+	} else {
+		//if(arguments.length==2){	
+		if (obj.currentStyle) {
+			return obj.currentStyle[attr];
+		} else {
+			return getComputedStyle(obj, false)[attr];
+		}
+	}
+    }<!--}}}-->
+var small =$('small');
+var box = $('wrapper');
+var speed = null;
+var btn = $('btn');
+var move = null;
+var stopNum = parseInt(css(box,'width')) - parseInt(css(small,'width'));
+console.log(stopNum);
+    //left
+    function startLeft(getLeft) {
+
+        move = setInterval (function () {
+                getLeft+=6;
+                small.style.left = getLeft +'px';
+                document.title = getLeft;
+                if(getLeft >= stopNum) {
+                    clearInterval(move);
+                    startTop(0);
+                }
+                },10);
+    }
+    function startTop(getTop) {
+
+        move = setInterval ( function () {
+            getTop+=6;
+            small.style.top = getTop + 'px';
+            document.title = getTop;
+            if(getTop >= stopNum) {
+            clearInterval(move);
+            starRight(400);
+            }
+            },10);
+    }
+    function starRight (getRight) {
+        move = setInterval( function () {
+                getRight-=6;
+                small.style.left = getRight + 'px';
+                document.title =getRight;
+                if(getRight <= 0) {
+                clearInterval(move);
+                    startBottom(400)
+                }
+                },10);
+    }
+    function startBottom (getBottm) {
+        move = setInterval( function () {
+                getBottm-=6;
+                small.style.top = getBottm + 'px';
+                if(getBottm <= 0) {
+                clearInterval(move);
+                    startLeft(-2);
+                }
+                },10);
+    }
+startLeft(0);
+
+btn.onclick = function () {
+    clearInterval(move);
+}
+    </script>
+</body>
+</html>

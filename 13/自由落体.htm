@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #box {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position:absolute;
+        }
+    </style>
+</head>
+<body style="height:2000px;">  <input type="button" id="btn" value="确业"/>
+    <div id="box"></div>
+    <script type="text/javascript">
+        var btn = document.getElementById('btn');
+        var box = document.getElementById('box');
+        btn.onclick = function () {
+            startMove();
+        }
+var timer = null;
+var ispeed = 0;
+var i = 0;
+function startMove(){
+    clearInterval(timer);
+    timer = setInterval ( function () {
+        ispeed +=3;
+        var t = box.offsetTop + ispeed;
+        if(t > document.documentElement.clientHeight - box.offsetHeight + scrolltop()){
+        ispeed *= -1;
+        ispeed*=0.75;
+        t = document.documentElement.clientHeight - box.offsetHeight+scrolltop();
+        }
+        i++;
+        box.style.top = t + 'px';
+        },30);
+    console.log(i);
+}
+
+function scrolltop () {
+    return document.documentElement.scrollTop || document.body.scrollTop;
+}
+    </script>
+</body>
+</html>

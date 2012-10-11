@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+	div {background: #fff; overflow: hidden; width: 440px; height: 210px; position: relative; margin: 0 auto;}
+	ul { margin: 0; padding: 0; height: 210px; position: absolute; left: 0; top: 0;}
+	li {list-style: none; float: left; padding: 5px; width: 100px; height: 60px;}
+	
+	li.active {padding-top: 7px; padding-bottom: 3px;}
+</style>
+</head>
+<body style="background: #99F;">
+<div id="box">
+	<ul>
+  	<li><img src="img/001.jpg" /></li>
+  	<li><img src="img/002.jpg" /></li>
+  	<li><img src="img/003.jpg" /></li>
+  	<li><img src="img/004.jpg" /></li>
+  	<li><img src="img/005.jpg" /></li>
+  	<li><img src="img/006.jpg" /></li>
+  	<li><img src="img/007.jpg" /></li>
+  	<li><img src="img/005.jpg" /></li>
+  	<li><img src="img/006.jpg" /></li>
+  	<li><img src="img/007.jpg" /></li>
+  	<li><img src="img/008.jpg" /></li>
+  	<li><img src="img/007.jpg" /></li>
+  	<li><img src="img/007.jpg" /></li>
+  	<li><img src="img/008.jpg" /></li>
+  	<li><img src="img/008.jpg" /></li>
+  	<li><img src="img/008.jpg" /></li>
+  	<li><img src="img/003.jpg" /></li>
+  	<li><img src="img/004.jpg" /></li>
+  	<li><img src="img/005.jpg" /></li>
+  	<li><img src="img/008.jpg" /></li>
+  	<li><img src="img/100.jpg" /></li>
+  </ul>
+  <ul></ul>
+</div>
+<input type="button" value="<<" />
+<input type="button" value=">>" />
+<script type="text/javascript">
+
+function css(obj,attr,val){
+	if(!val){
+		if(obj.currentStyle){
+			return parseInt(obj.currentStyle[attr]);	
+		}else{
+			return parseInt(getComputedStyle(obj,false)[attr]);
+		}
+	}else{
+		obj.style[attr]=val;
+	}
+}
+var getWrap = document.getElementsByTagName('ul');
+var getItem = getWrap[0].getElementsByTagName('li');
+var move = null;
+var onBtn = document.getElementsByTagName('input');
+var getImg = document.getElementsByTagName('img');
+var iSpeed = 5;
+//TODO 给定宽度
+getWrap[0].style.width = (css(getItem[0],'width') + 10) * (getItem.length/3) + 'px';
+getWrap[1].innerHTML = getWrap[0].innerHTML;//复制
+getWrap[1].style.width = getWrap[0].style.width;
+getWrap[1].style.left  = getWrap[0].style.width;
+function toMove () {
+move = setInterval ( function () {
+        getWrap[0].style.left = css(getWrap[0],'left') - iSpeed + 'px';
+        getWrap[1].style.left = css(getWrap[1],'left') -iSpeed + 'px';
+        document.title =  getWrap[1].style.left;
+        if(css(getWrap[1],'left') <= 0) {//TODO 是getWrap[1]
+        getWrap[0].style.left = '0px';
+        getWrap[1].style.left = getWrap[0].style.width;//重新放在后面
+        }
+        if(css(getWrap[0],'left') > 0) {
+         document.title =getWrap[0].style.left;
+        getWrap[0].style.left = -css(getWrap[0],'width') + 'px';//变成-的
+        getWrap[1].style.left = '0px';
+        }
+        },10)
+}
+toMove();
+for (var i = 0; i < getImg.length; i++) {
+    getImg[i].onmouseover = function () {
+        clearInterval(move);
+    }
+    getImg[i].onmouseout = function () {
+       toMove();
+    }
+};
+
+onBtn[0].onclick = function () {
+    //clearInterval(move);
+    iSpeed = 5;
+}
+onBtn[1].onclick = function () {
+    iSpeed = -5;
+}
+</script>
+</body>
+</html>

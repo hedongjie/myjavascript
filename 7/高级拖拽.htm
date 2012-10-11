@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+    <style type="text/css">
+        #box {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+        }
+        #show {
+            position: absolute;
+        }
+        span {
+            position: absolute;
+            cursor:move
+        }
+    </style>
+</head>
+<body>
+    <span>1231233333333333333333`</span>
+    <div id="box"></div>
+    <img id="show" src="./love.jpg" alt="love" />
+    <script type="text/javascript">
+        new function () {
+            var box = document.getElementById('box');
+            var imgshow = document.getElementById('show');
+            var span = document.getElementsByTagName('span')[0];
+            dragDrop(box);
+            dragDrop(imgshow);
+            dragDrop(span);
+            //封装函数
+            function dragDrop(obj) {//参数
+             obj.onmousedown = function (event) {
+                var oEvent = event || window.event;
+                var disX = oEvent.clientX - obj.offsetLeft;
+                var disY = oEvent.clientY - obj.offsetTop;
+                if(obj.setCapture) {//全局捕获
+                   obj.setCapture();
+                }
+                obj.style.cursor = 'move';//移动指针
+                document.onmousemove = function (event) {
+                    var oEvent = event || window.event;
+
+                    var moveL = oEvent.clientX - disX;//距离
+                    var moveR  = oEvent.clientY - disY;
+                    console.log(moveL);
+
+                    if(moveL < 0) {
+                        moveL  = 0;
+                    } else if( moveL > document.documentElement.clientWidth - obj.offsetWidth) {
+                        moveL =  document.documentElement.clientWidth - obj.offsetWidth;
+                    }
+                    if (moveR < 0) {
+                        moveR = 0;
+                    } else if( moveR > document.documentElement.clientHeight - obj.offsetHeight) {
+                        moveR =  document.documentElement.clientHeight - obj.offsetHeight;
+                    }
+                    obj.style.left = moveL + 'px';
+                    obj.style.top = moveR + 'px';
+                }
+
+                document.onmouseup = function () {
+                    document.onmousemove = document.onmouseup = null
+                    if(obj.setCapture) {//抬起取消全局捕获
+                        obj.releaseCapture();
+                    }
+                }
+                return false;//解决空标签
+                }
+            }
+        }
+    </script>
+</body>
+</html>

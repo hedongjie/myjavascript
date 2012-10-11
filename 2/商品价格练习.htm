@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+
+<ul>
+	<li>
+  	<input type="button" value="-" />
+  	<input type="text" value="0" />
+  	<input type="button" value="+" />
+    单价：<span>20</span>元
+    合计：<input type="text" value="0" />
+  </li>
+	<li><!--{{{-->
+  	<input type="button" value="-" />
+  	<input type="text" value="0" />
+  	<input type="button" value="+" />
+    单价：<span>30</span>元
+    合计：<input type="text" value="0" />
+  </li>
+	<li>
+  	<input type="button" value="-" />
+  	<input type="text" value="0" />
+  	<input type="button" value="+" />
+    单价：<span>40</span>元
+    合计：<input type="text" value="0" />
+  </li>
+	<li>
+  	<input type="button" value="-" />
+  	<input type="text" value="0" />
+  	<input type="button" value="+" />
+    单价：<span>50</span>元
+    合计：<input type="text" value="0" />
+  </li>
+	<li>
+  	<input type="button" value="-" />
+  	<input type="text" value="0" />
+  	<input type="button" value="+" />
+    单价：<span>60</span>元
+    合计：<input type="text" value="0" />
+  </li><!--}}}-->
+</ul>
+
+<div id="total">
+	一共买了<span>0</span>件商品，总计：<span>0</span>元，它们的价格分别是：<span></span>
+</div>
+
+</body>
+<script type="text/javascript">
+    var getItem = document.getElementsByTagName('li');
+    var getInput = document.getElementsByTagName('input');
+    var getTotal = document.getElementById('total');
+    var countSpan = getTotal.getElementsByTagName('span');
+    for (var i = 0; i < getItem.length; i++) {//TODO 这里需要注意不管有多少LI都一样，这一点要多学习减少获取而且扩展性好
+        //分析好结构
+        countOpera(getItem[i]);
+    };
+function countOpera (obj) {
+    var getInput = obj.getElementsByTagName('input');
+    var getunit = obj.getElementsByTagName('span');
+        getInput[0].onclick= function () {
+        if(isNaN(getInput[1].value)) {
+            alert('请输入数字');
+            getInput[1].value = '';
+        } else {
+            getInput[1].value --;
+            if(getInput[1].value == -1) {
+                getInput[1].value = 0;
+            }
+            getInput[3].value = parseInt(getInput[1].value) * parseInt(getunit[0].innerHTML);
+             count(1,0);//TODO1表未件数 //0表示要统计的
+             count(3,1);//3代给总合  //1表示要晕示在哪里
+        }
+    }
+getInput[2].onclick= function () {
+         if(isNaN(getInput[1].value)) {
+            alert('请输入数字');
+            getInput[1].value = '';
+         } else {
+          getInput[1].value ++;
+          getInput[3].value = parseInt(getInput[1].value) * parseInt(getunit[0].innerHTML);
+          count(1,0);
+          count(3,1);
+         }
+}
+function count (num1, num2) {
+    var Ccount = 0 ;//TODO定义外面放在循环里面会被去掉
+    var money = '';
+for (var i = 0; i < getItem.length; i++) {
+    var getInp = getItem[i].getElementsByTagName('input')[num1];
+    var getSpan = getItem[i].getElementsByTagName('span')[0];
+    Ccount += parseInt(getInp.value);
+    if(getInp.value > 0) {
+    money += "、"+ getSpan.innerHTML;
+    }
+
+};
+countSpan[num2].innerHTML = Ccount;
+countSpan[2].innerHTML = money.substring(1);
+}
+}
+</script>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+    <style type="text/css">
+        #wrapper {
+            width: 500px;
+            margin: 0 auto;
+            background: #add6d6;;
+        }
+        #cake {
+            list-style-type: none;
+            padding: 0;
+            margin: 0 auto;
+            overflow: hidden;
+            width: 232px;
+        }
+        #cake li {
+            width: 100px;
+            height: 40px;
+            border: 4px solid #eee;
+            float: left;
+            margin: 4px;
+            line-height: 40px;
+            text-align: center;
+            cursor:pointer;
+        }
+        #wrapper .active {
+            border-color: #FF9C18;
+        }
+        #btn {
+            width: 158px;
+            height: 26px;
+            background: #FF9C18;
+            border: none;
+            margin:10px 175px;
+            text-align: center;
+            color: #fff;
+            border-radius:3px;
+           box-shadow:0 1px 1px #000;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+    <ul id="cake">
+    	<li>内容1</li>
+    	<li>内容2</li>
+    	<li>内容3</li>
+    	<li>内容4</li>
+    	<li>内容5</li>
+    	<li>内容6</li>
+    	<li>内容7</li>
+    	<li>内容8</li>
+    	<li>内容9</li>
+    	<li>内容10</li>
+    </ul>
+    <input type="button" id="btn" value="点击" />
+</div>
+<script type="text/javascript">
+    window.onload = function () {
+        var getCake = document.getElementById('cake').getElementsByTagName('li'); //获取第个li
+        var btn = document.getElementById('btn'); //获取按钮
+        for (var i = 0; i < getCake.length; i++) { //循环li
+            getCake[i].onclick = show; //每个li事件
+        };
+        btn.onclick = allShow; //按钮事件
+        //单独li事件
+        function show () {
+           this.className == 'active' ? this.className = '': this.className = 'active'; //三目
+                 /*if(this.className == 'active') {
+                    this.className = '';
+                }else if(this.className == '') {
+                    this.className = 'active';
+            };*/
+        };
+        //按钮事件
+        function allShow () {
+            for (var i = 0; i < getCake.length; i++) {
+                getCake[i].className == "" ? getCake[i].className = "active" : getCake[i].className = "";
+                /*if(getCake[i].className == ""){
+                    getCake[i].className = "active";
+                } else if(getCake[i].className == "active") {
+                 getCake[i].className = "";
+                }*/
+            };
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        p{
+            margin: 10px 0;
+            padding: 0;
+        }
+        input {
+            height: 20px;
+            line-height: 20px;
+            border: 1px solid #376B2A;
+            padding: 2px;
+        }
+        #btn,#reset {
+            width: 60px;
+            height: 25px;
+            margin: 0 10px;
+        }
+        .result {
+         margin:0 54px;
+        }
+    </style>
+</head>
+<body>
+    <form id="oform"action="http:www.baidu.com">
+    <p><label for="user">用户名：<input id="user" type="text" /></label></p>
+    <p><label for="pass">密&nbsp;&nbsp;&nbsp;&nbsp;码：<input id="pass" type="text" /></label></p>
+    <p class="result"><input id="btn" type="submit" value="确定" /><input id="reset" type="reset" /></p>
+    </form>
+    <script type="text/javascript">
+new function() {
+	var user = document.getElementById('user');
+	var pass = document.getElementById('pass');
+    var btnForm = document.getElementById('oform');
+    var btnReset = document.getElementById('reset');
+    if(user.value == ''){
+        user.focus();
+    }
+	if (getCookie('user')) {
+		user.value = getCookie('user');
+		pass.value = getCookie('password');
+	}
+	btnForm.onsubmit = function() {
+        if(user.value == '') {
+            alert('请输入用户名');
+             user.focus();
+            return false;
+        } else if (pass.value == '') {
+            alert('请输入密码');
+            pass.focus();
+            return false;
+        }
+        btnReset.onreset = function () {
+           return confirm('你确定重置');
+        }
+
+		setCookie('user', user.value, 5);
+		setCookie('password', pass.value, 5);
+	}
+}
+function setCookie(key, value, t) {
+	var oDate = new Date();
+	oDate.setDate(oDate.getDate() + t);
+	document.cookie = key + '= ' + encodeURI(value) + ';expires=' + oDate;
+}
+function getCookie(key) {
+	var arr = document.cookie.split('; ');
+	for (var i = 0; i < arr.length; i++) {
+		var arr2 = arr[i].split('=');
+		if (arr2[0] == key) {
+			return decodeURI(arr2[1]);
+		}
+	}
+}
+function delCookie(key) {
+	setCookie(key, '', - 1);
+}
+    </script>
+</body>
+</html>

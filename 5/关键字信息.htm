@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        p {
+            width: 600px;
+            //margin: 100px auto;
+            border: 1px solid #ccc;
+            line-height: 28px;
+            padding: 10px;
+            word-spacing:normal;
+            position: relative;
+            background: #ddeeff;
+        }
+        #show {
+            width: 300px;
+            border: 1px solid #ccc;
+            background: #fff;
+            position: absolute;
+            display: none;
+            font-size: 12px;
+            line-height: 22px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body style="height: 2000px; background:#ddeecc;">
+    <p id="content"><a class="height-info" href="#" data="它可以使得信息和用户之间不仅只是一种显示和浏览的关系，" data-src="http://www.baidu.com">javascript</a>的出现，它可以使得信息和用户之间不仅只是一种显示和浏览的关系，而是实现了一种实时的、动态的、可交互式的表达能力。从而基于<a class="height-info" href="#" data="静态的HTML页面将被可提供动态实时信息，并对客户操作进它可以使得信息和用户之间不仅只是一种显示和浏览的关系，行反应的Web页面的取代">CGI</a>静态的HTML页面将被可提供动态实时信息，并对客户操作进行反应的Web页面的取代。<a class="height-info" href="#" data="它可以使得信息和用户之间不仅只是一种显示和浏览的关系，">javascript</a>脚本正是满足这种需求而产生的语言。它深受广泛用户的喜爱和欢迎。它是众多<a class="height-info" href="#" data="它可以使得信息和用户之间不仅只是一种显示和浏览的关系，">脚本语言</a>中较为优秀的一种，它与WWW的结合有效地实现了网络计算和网络计算机的蓝图。</p>
+    <div id="show"></div>
+    <script type="text/javascript">
+        var getCont = document.getElementById('content');
+        var getShow = document.getElementById('show');
+        var getLink = getClassName(getCont,'height-info','a');
+        var dis = null;
+        //var dataSrc = ['http://www.rankber.com'];
+        for (var i = 0; i < getLink.length; i++) {
+
+            getLink[i].onmouseover = function () {
+                clearInterval(dis);
+                getShow.style.display = 'block';
+                getShow.style.left = getPos(this).l + 'px';
+                getShow.style.top = getPos(this).t + this.offsetHeight + 15 + 'px';
+                getShow.innerHTML = this.getAttribute('data') + ' <a href="'+ this.getAttribute('data-src') +'">详细</a>';
+            }
+
+            getLink[i].onmouseout = function () {
+               dis = setTimeout ( function () {
+                    getShow.style.display = 'none';
+                        },300);
+            }
+        }
+        
+        getShow.onmouseover = function () {
+            clearInterval(dis);
+        }
+        getCont.style.left = (document.documentElement.clientWidth-getCont.offsetWidth)/2 + 'px';
+        getCont.style.top = (document.documentElement.clientHeight-getCont.offsetHeight)/2 + 'px';
+       
+        window.onscroll = function () {
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            //getCont.style.left = (document.documentElement.clientWidth-getCont.offsetWidth)/2 + scrollTop  + 'px';
+            getCont.style.top = (document.documentElement.clientHeight-getCont.offsetHeight)/2 + scrollTop  + 'px';
+             //getShow.style.top = getPos(this).t + this.offsetHeight + 45 + scrollTop + 'px';
+
+        }
+        function getPos(obj) {
+            var iPos = {l:0,t:0};
+            while(obj) {
+                iPos.l += obj.offsetLeft;
+                iPos.t += obj.offsetTop;
+                obj = obj.offsetParent;
+            }
+            return iPos;
+        }
+        function getClassName (oPrent,sClassName, sTagName ) {
+            var els = oPrent.getElementsByTagName(sTagName);
+            var arr = [];
+            for (var i = 0; i < els.length; i++) {
+                if(els[i].className == sClassName) {
+                    arr.push(els[i]);
+                }
+            }
+            return arr;
+        }
+    </script>
+</body>
+</html>

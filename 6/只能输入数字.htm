@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+    <input type="text" />
+    <script type="text/javascript">
+        var getTxt = document.getElementsByTagName('input')[0];
+        getTxt.onkeydown = function (ev) {
+            var oEvent = ev || window.event;
+            console.log(oEvent.keyCode);
+            if(oEvent.keyCode == 8 || (oEvent.keyCode > 48 && oEvent.keyCode < 57 )) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>

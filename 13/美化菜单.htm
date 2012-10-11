@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        .textValue {
+            width: 100px;
+            height: 25px;
+            border: 1px solid #ccc;
+        }
+        .pullDown {
+            display: none;
+        }
+        
+    </style>
+</head>
+<body>
+    <form action="http://www.baidu.com">
+        Email Address:<input type="text" /><br />
+        Password:<input type="text" /><br />
+        
+        <select id="nation" name="nation">
+            <option value="1">日本</option>
+            <option value="2">中国</option>
+            <option value="3">美国</option>
+            <option value="4">俄罗斯</option>
+            <option value="5">韩国</option>
+            <option value="6">朝鲜</option>
+        </select>
+        <input type="submit" />
+    </form>
+    <script type="text/javascript">
+        function formControl (id) {
+            var selectEle = document.getElementById(id);
+            var textWrap = document.createElement('div');
+            var textValue = document.createElement('div');
+            textValue.className = 'textValue';
+            var pullDown = document.createElement('ul');
+            pullDown.className = 'pullDown';
+            textValue.innerHTML = selectEle.options[0].text;
+            textWrap.appendChild(textValue);
+            textWrap.appendChild(pullDown);
+            selectEle.parentNode.insertBefore(textWrap,selectEle);
+            //selectEle.style.display ='none';
+            textValue.onclick = function(event) {
+                var oEvent = event || window.event;
+                pullDown.style.display = 'block';
+                oEvent.cancelBubble = 'true';
+
+            }
+            for (var i = 0; i < selectEle.options.length; i++) {
+                var listItem = document.createElement('li');
+                listItem.innerHTML = selectEle.options[i].text;
+                listItem.value = selectEle.options[i].value;
+                pullDown.appendChild(listItem);
+                listItem.onclick = function () {
+                    textValue.innerHTML = this.innerHTML;
+                    selectEle.value = this.value;
+                    pullDown.style.display = 'none';
+                }
+            };
+        }
+formControl('nation');
+function bineEvent(obj,ev,fn) {
+    if(obj.addEventListener) {
+        obj.addEventListener(ev,fn,false);
+    } else {
+        obj.attachEvent('on'+ev,function(){
+                fn.call(obj);
+         })
+    }
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+    <style type="text/css">
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            border: 1px solid #eeddcc;
+            float: left;
+            padding: 15px;
+        }
+        li {
+            line-height: 22px;
+            margin: 8px 0;
+            cursor:pointer;
+        }
+        #info {
+            border: 1px solid #ddeecc;
+            padding:10px;
+            display: none;
+            position: absolute;
+            background: #cceedd;;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>web前端工程师</li>
+        <li>1111111前端工程师</li>
+        <li>2222前端工程师</li>
+        <li>w程师</li>
+        <li>web前端工程师</li>
+    </ul>
+    <script type="text/javascript">
+        var getItem = document.getElementsByTagName('li');
+        var createDiv = document.createElement('div');
+        createDiv.id = 'info';
+        document.body.appendChild(createDiv);
+        var getDiv = document.getElementById('info');
+        for (var i = 0; i < getItem.length; i++) {
+            getItem[i].index = i;
+                getItem[i].onmousemove = function (ev) {
+                     var ev = ev || event;
+                     getDiv.style.display = 'block';
+                    getDiv.innerHTML = this.innerHTML;
+                    getDiv.style.left = ev.clientX + 10 +  'px';
+                    getDiv.style.top = ev.clientY  + 10 + 'px';
+                }
+             getItem[i].onmouseout = function () {
+                getDiv.style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>

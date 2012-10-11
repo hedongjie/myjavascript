@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        div {
+            float: left;
+        }
+        textarea {
+            width: 300px;
+            height: 200px;
+            border: 1px solid #72AA83;
+            resize: none;
+            font-family: Tahoma,宋体;
+            font-size: 14px;
+            line-height: 18px;
+            word-wrap: break-word;
+            float: left;
+        }
+        span{
+            display: block;
+            width: 50px;
+            text-align: center;
+            width: 88px;
+            
+        }
+    </style>
+</head>
+<body>
+    <textarea id="text" ></textarea>
+    <div>
+    <input type="button" value="把文字右移" />
+    <span></span>
+    </div>
+    <textarea id="clone-txt" ></textarea>
+    <script type="text/javascript">
+        new function () {
+            var onBtn = document.getElementsByTagName('input')[0];
+            var getTxt = document.getElementsByTagName('textarea');
+            var record = document.getElementsByTagName('span')[0];
+            var printer = null;
+            var arr = [];
+            var arrData = [];
+            onBtn.onclick = function () {
+                if(getTxt[0].value == ''){
+                    record.innerHTML = 0;
+                    return;  //给一个检测
+
+                }
+               arr = getTxt[0].value.split('');
+                //alert(arr);
+                printer = setInterval ( function () {
+                        getTxt[1].value += arr.shift();//第二个文本框的内容等于从第一个文本框的第一个字母弹出来的
+                        arrData = getTxt[0].value.split('');
+                        arrData.shift();
+                        getTxt[0].value = arrData.join(''); //转换成字符在能放到value里面
+                        if(arr.length == 0) {
+                            clearInterval(printer);
+                            }
+                            record.innerHTML = arr.length+"/"+count;
+                            record.style.backgroundColor = 'yellow';
+                        },60);
+                var count = arr.length;//做个记录数
+            }
+        }
+    </script>
+</body>
+</html>

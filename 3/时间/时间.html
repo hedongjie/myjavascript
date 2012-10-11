@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+
+<script>
+
+window.onload=function()
+{
+	var oT=document.getElementById('text');
+	var aImg=document.getElementsByTagName('img');
+
+	function fnGetTime()
+	{
+		var oDate=new Date();			//系统时间
+		var iHour=oDate.getHours();		//时
+		var iMin=oDate.getMinutes();	//分
+		var iSec=oDate.getSeconds();	//秒
+		
+        var str=fnTwo(iHour)+":"+fnTwo(iMin)+":"+fnTwo(iSec);
+        for(var i=0; i<str.length; i++){
+            if(str.charAt(i) == ":" ){
+			aImg[i].src='image/colon.JPG';
+        }else {
+        
+        aImg[i].src='image/'+str.charAt(i)+'.JPG';
+        }
+    }
+		oT.value=str;
+		
+		
+	}
+	fnGetTime();
+	
+	setInterval(function(){
+		fnGetTime();
+	}, 1000);
+};
+
+function fnTwo(iNum)
+{
+	if(iNum<10)
+	{
+		return '0'+iNum;
+	}
+	else
+	{
+		return ''+iNum;
+	}
+}
+
+</script>
+
+</head>
+
+<body style="background:#000">
+
+<input id="text" type="text" style="width:600px; height:50px; line-height:50px; font-size:30px;" />
+<br />
+<img src="images/0.JPG" alt="" />
+<img src="images/0.JPG" alt="" />
+<img src="images/0.JPG" alt="" />
+<img src="images/0.JPG" alt="" />
+<img src="images/0.JPG" alt="" />
+<img src="images/0.JPG" alt="" />
+<img src="images/0.JPG" alt="" />
+<img src="images/0.JPG" alt="" />
+
+</body>
+</html>

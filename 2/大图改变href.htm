@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图片墙</title>
+    <style type="text/css">
+body{
+     font:12px/1.5 arial,sans-serif;
+}
+a{
+    text-decoration: none;
+    color: #fff;
+}
+img{
+    border:0;
+}
+#imgShow{
+    list-style-type:none;
+    padding: 0;
+    margin: 0;
+}
+#imgShow{
+    width:212px;
+    overflow:hidden;
+    padding:0 0 3px 3px;
+}
+#imgShow li,
+#imgShow li img{
+    float:left;
+    width:50px;
+    height:50px;
+}
+#imgShow li{
+    margin:3px 3px 0 0;
+}
+#imgShow li.first,
+#imgShow li.first img{
+    width:156px;
+    height:156px;
+}
+    
+    </style>
+</head>
+<body>
+<ul id="imgShow">
+	<li class="first"><img src="./image/j9.jpg" alt="" /></li>
+	<li><img src="./image/j8.jpg" alt="" /></li>
+	<li><img  src="./image/j7.jpg" alt="" /></li>
+	<li><img src="./image/j6.jpg" alt="" /></li>
+	<li><img src="./image/j5.jpg" alt="" /></li>
+	<li><img src="./image/j4.jpg" alt="" /></li>
+	<li><img src="./image/j3.jpg" alt="" /></li>
+    <li><img src="./image/j2.jpg" alt="" /></li>
+</ul>
+<script type="text/javascript">
+    //获取imgShow下的所有img元素
+var imgItem = document.getElementById('imgShow').getElementsByTagName('img');
+var imgShow = document.getElementById('imgShow');
+    var firstImg = imgItem[0]; //获取第一个主显图片
+    for (var i = 0; i < imgItem.length; i++) {
+        imgItem[i].onmouseover = function () {
+        firstImg.src =this.getAttribute("src"); //更改主显图的src属性
+        };
+    }
+</script>
+</body>
+</html>

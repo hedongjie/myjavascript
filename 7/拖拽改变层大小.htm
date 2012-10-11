@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+    #left,#right,#bottom {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: green;
+      
+    }
+    #left {
+        top: 40%;
+    }
+    #right {
+        right: 0;
+        top: 40%;
+    }
+    #bottom {
+        bottom: 0;
+        left: 40%;
+    }
+    #box {
+        width: 100px;
+        height: 100px;
+        background: red;
+        position: absolute;
+        margin: 0 auto;
+        left: 400px;
+    }
+</style>
+
+</head>
+
+<body>
+    <div id="box">
+        <div id="left"></div>
+        <div id="right"></div>
+        <div id="bottom"></div>
+    </div>
+    <script type="text/javascript">
+        new function () {
+            var box = document.getElementById('box');
+            var left = document.getElementById('left');
+            var right = document.getElementById('right');
+            var bottom = document.getElementById('bottom');
+            right.onmousedown = function (event) {
+                var oEvent = event || window.event;
+                var disX = oEvent.clientX;
+                //var disY = oEvent.clientY;
+                var eventwidth = box.offsetWidth;
+                document.onmousemove = function (event) {
+                    var oEvent = event || window.event;
+                    box.style.width = eventwidth + (oEvent.clientX - disX) + 'px';
+                }
+                document.onmouseup = function () {
+                    document.onmousemove = document.onmouseup = null;
+                }
+                return false;
+            }
+            left.onmousedown = function (event) {
+                var oEvent = event || window.event;
+                var disX = oEvent.clientX;
+                var eventwidth = box.offsetWidth;
+                var eventleft = box.offsetLeft;
+                document.onmousemove = function (event) {
+                    var oEvent = event || window.event;
+                    box.style.width = eventwidth + (disX - oEvent.clientX) + 'px';
+                    box.style.left = eventleft - (disX - oEvent.clientX) +'px';
+                }
+                document.onmouseup = function () {
+                 document.onmousemove = document.onmouseup = null;
+                }
+                return false;
+            }
+            bottom.onmousedown = function (event) {
+                var oEvent = event || window.event;
+                var disY = oEvent.clientY;
+                var eventheight = box.offsetHeight;
+                var eventtop = box.offsetTop;
+                document.onmousemove = function (event) {
+                    var oEvent = event || window.event;
+                    box.style.height = eventheight + (oEvent.clientY - disY) + 'px';
+                }
+                document.onmouseup = function () {
+                 document.onmousemove = document.onmouseup = null;
+                }
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>

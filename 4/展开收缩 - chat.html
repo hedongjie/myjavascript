@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+#txt{ width:200px; min-height:20px; border:1px #000000 solid;}
+
+</style>
+<script>
+window.onload=function(){
+    var str = '她曾经是打工妹，如今她是上市公司的CEO；她曾经被逼婚，如今蜕变为网络第一红娘；她在成就更多人幸福的同时，也成就了自己的事业。她就是"小龙女"，世纪佳缘CEO龚海燕.';
+    var oInput = document.getElementsByTagName('input');
+    var getTxt = document.getElementsByTagName('div');
+    var printr = null;
+    var i = 0;
+    oInput[0].onclick = function () {
+        clearInterval(printr);
+        printr = setInterval( function () {
+            //这里用for的话一直循环完才可以
+        getTxt[0].innerHTML += str.charAt(i);
+        i++;
+        if(i == str.length) {
+            clearInterval(printr);
+        }
+        document.title = i;
+        },30);
+    }
+    oInput[1].onclick = function () {
+        clearInterval(printr);
+        printr = setInterval( function () {
+            //alert(i);
+            i--;
+            getTxt[0].innerHTML = str.substring(0,i);//i是递减的造成假像
+            if(i == 0 ) {
+                clearInterval(printr);
+            }
+        },30);
+
+    }
+}
+</script>
+</head>
+
+<body>
+<input type="button" value="展开"/>
+<input type="button" value="收缩"/>
+<div id="txt"></div>
+
+</body>
+</html>

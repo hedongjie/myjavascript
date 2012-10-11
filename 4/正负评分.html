@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+	* {margin: 0; padding: 0;}
+	body {text-align: center;}
+	ul {list-style: none;}
+	#pingfen {width: 600px; height: 92px; border: 1px solid #31639C; margin: 20px auto; overflow: hidden; background: #E7EFF7;}
+	#pingfen h2 {width: 100%; height: 18px; background: url(top.jpg) repeat-x; border-bottom: 2px solid #31639C; font-size: 12px; line-height: 18px; padding-left: 10px; text-align: left;}
+	#pingfen div {clear: both; text-align: left; margin: 10px;}
+	#pingfen div ul li {float: left; width: 30px; height: 30px;  text-align: center;}
+	#pingfen div ul li span {display: block;padding-top: 30px;}
+	#pingfen div ul li.st1 {background: url(star.jpg) no-repeat center bottom;}
+	#pingfen div ul li.st2 {background: url(star.jpg) no-repeat center center;}
+	#pingfen div ul li.st3 {background: url(star.jpg) no-repeat center top;}
+	#pingfen div p {float: left; height: 50px; line-height: 50px; text-align: left; margin-left: 30px; color: #666;}
+</style>
+
+</head>
+
+<body>
+	<div id="pingfen">
+		<h2>对本文中的事件或人物评分：</h2>
+		<div>
+			<ul>
+				<li class="st1"><span>-5</span></li>
+				<li class="st1"><span>-4</span></li>
+				<li class="st1"><span>-3</span></li>
+				<li class="st1"><span>-2</span></li>
+				<li class="st1"><span>-1</span></li>
+				<li class="st2"><span>0</span></li>
+				<li class="st1"><span>1</span></li>
+				<li class="st1"><span>2</span></li>
+				<li class="st1"><span>3</span></li>
+				<li class="st1"><span>4</span></li>
+				<li class="st1"><span>5</span></li>
+			</ul>
+			<p>当前评分：打分后显示</p>
+		</div>
+    </div>
+    <script>
+    var getItem = document.getElementsByTagName('li');
+    var getContent = document.getElementsByTagName('p')[0];
+    var power = true;//开关
+    for (var i = 0; i < getItem.length; i++) {
+        getItem[i].index = i;
+        getItem[i].onmouseover = function () {
+            if(this.index <= 5) {
+                for (var i = this.index; i <= 5; i++) { //从右往左
+                    getItem[i].className = 'st3';
+                };
+            } else if(this.index >= 5) {
+                for (var i = 5; i <= this.index; i++) { //从左往右
+                    getItem[i].className = 'st3';
+                };
+            }
+
+        }
+
+        getItem[i].onmouseout = function () {
+            if(power) {
+            for (var i = 0; i < getItem.length; i++) {
+                getItem[i].className = 'st1';
+                if(i == 5) {
+                    getItem[i].className = 'st2';//中间星星
+                }
+            }
+            } else {
+                power = true;
+            }
+        }
+        getItem[i].onclick = function () {
+            getContent.innerHTML = "当前评分："+(this.index-5)+'分';
+            power = false;//点的话执行了这里
+        }
+    };
+</script>
+</body>
+</html>

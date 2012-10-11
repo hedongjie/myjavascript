@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+    <ul id="cont">
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    </ul>
+    <script type="text/javascript">
+        var getRow = document.getElementById('cont').getElementsByTagName('li');
+        var oldColor = '';
+        for (var i = 0; i < getRow.length; i++) {
+            getRow[i].value = i;
+            getRow[i].style.background = 'blue';
+            if(i % 2 == 0) {
+                getRow[i].style.background = 'yellow';
+            }
+            //移动到上面
+            getRow[i].onmouseover = function () {
+                oldColor = this.style.backgroundColor; //记录每个颜色
+                this.style.background = 'red';
+                document.title = oldColor;
+            }
+            getRow[i].onmouseout = function () {
+                //alert(i);
+                this.style.background = oldColor; //还原之前颜色
+                /*if(this.value % 2 == 0) {
+                this.style.background = 'yellow';
+                } else {
+                this.style.background = 'blue';
+                };*/
+            }
+            getRow[i].onclick = function () {
+                for (var i = 0; i < getRow.length; i++) {
+                    getRow[i].style.background = 'blue';
+                    //alert(1);
+                    if(i % 2 ==0) {
+                    getRow[i].style.background = 'yellow';
+                    }
+                };
+                //alert(oldColor);//现在是yellow
+                if(oldColor == 'red') { //说明没点击了第二次点击
+                    if(this.value % 2 == 0) { //因为用不是7 记录索引
+                        this.style.background = 'yellow';
+                        //alert(oldColor);
+                        oldColor = 'yellow'; //上面已经把oldColor变成了red 因为上面离开的时候还会用到oldColor所以要重新定义这个值
+                    } else {
+                        this.style.background = 'blue';
+                        oldColor = 'blue';
+                    }
+                } else {
+                    this.style.background = 'red';
+                    oldColor = 'red';//变成red
+                }
+                //this.style.background = 'gray';
+                //alert(this.value);
+            }
+        }
+    </script>
+</body>
+</html>

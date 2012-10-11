@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+    <style type="text/css">
+        span {
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+    <span id="all">全选</span>/<span id="invert">反选</span>
+    <ol id="option">
+    	<li><input type="checkbox" />选项一</li>
+    	<li><input type="checkbox" />选项二</li>
+    	<li><input type="checkbox" />选项三</li>
+    	<li><input type="checkbox" />选项四</li>
+    	<li><input type="checkbox" />选项五</li>
+    	<li><input type="checkbox" />选项六</li>
+    	<li><input type="checkbox" />选项七</li>
+    	<li><input type="checkbox" />选项八</li>
+    	<li><input type="checkbox" />选项九</li>
+    	<li><input type="checkbox" />选项十</li>
+    </ol>
+    <script type="text/javascript">
+        new function (){
+        var getAll = document.getElementById('all');
+        var getInvert = document.getElementById('invert');
+        var option = document.getElementById('option').getElementsByTagName('input');
+            for (var i = 0; i < option.length; i++) {
+            getAll.onclick = allOption;
+            getInvert.onclick = invertOption;
+        };
+        function allOption() {
+
+            for (var i = 0; i < option.length; i++) {
+                option[i].checked = true;
+            };
+        }
+        function invertOption () {
+            for (var i = 0; i < option.length; i++) {
+                //三目方法
+                //option[i].checked == true? option[i].checked = false: option[i].checked = true;
+                //alert(option[i].checked);
+                option[i].checked = !(option[i].checked);//如果true了就false 如果false了就true
+                //判断方法
+                /*if(option[i].checked == true) { //全选了
+                option[i].checked = false;
+                }else {
+                option[i].checked = true;
+                }*/
+            };
+           
+        }
+    }
+    </script>
+</body>
+</html>

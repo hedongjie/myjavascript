@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #box {
+            position: absolute;
+            background: red;
+            width: 100px;
+            height: 100px;
+        }
+        #foundwrap {
+            position: absolute;
+            border: 1px dashed #000;
+        }
+    </style>
+</head>
+<body style="height:2000px;">
+    <div id="box"></div>
+    <script type="text/javascript">
+        new function () {
+            var box = document.getElementById('box');
+            box.onmousedown = function (event) {
+                var oEvent = event || window.event;
+                var foundwrap = document.createElement('div');
+                foundwrap.id = 'foundwrap';
+                foundwrap.style.width = this.offsetWidth + 'px';
+                foundwrap.style.height = this.offsetHeight + 'px';
+                foundwrap.style.left = this.offsetLeft -1 + 'px';
+                foundwrap.style.top = this.offsetTop -1 + 'px';
+                document.body.appendChild(foundwrap);
+                var disX = oEvent.clientX - foundwrap.offsetLeft; 
+                var disY = oEvent.clientY - foundwrap.offsetTop;
+                document.onmousemove = function (event) {
+                    var oEvent = event || window.event;
+                    foundwrap.style.left = oEvent.clientX - disX + 'px';
+                    foundwrap.style.top = oEvent.clientY - disY + 'px';
+                }
+                document.onmouseup = function () {
+                    document.onmousemove = document.onmouseup = null;
+                    box.style.left = foundwrap.offsetLeft+1 + 'px';
+                    box.style.top = foundwrap.offsetTop+1 + 'px';
+                    document.body.removeChild(foundwrap);
+                }
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+* {margin:0; padding:0;}
+.my_select div {border:1px solid black; background:#CCC; width:100px; text-align:center;}
+.my_select ul {border:1px solid black; background:#66FFFF; overflow:hidden; width:220px; display:none;}
+.my_select li {list-style:none; width:100px; background:#CCC; margin:5px; float:left; text-align:center;}
+</style>
+<script>
+
+window.onload = function(){
+	
+	createSel('area');
+	createSel('sex');
+	
+	function createSel(id){
+		var oSel = document.getElementById(id);
+		
+		var oDiv = document.createElement('div');
+		var oBtn = document.createElement('div');
+		var oUl = document.createElement('ul');
+		
+		oDiv.className = 'my_select';
+		
+		//oSel.options[0].innerHTML/text
+		
+		oBtn.innerHTML = oSel.options[0].text;
+		
+		oDiv.appendChild(oBtn);
+		oDiv.appendChild(oUl);
+		
+		oSel.parentNode.insertBefore(oDiv,oSel);
+        //
+		oSel.style.display = 'none';
+		
+		oBtn.onclick = function(ev){
+			var ev = ev || window.event;
+			oUl.style.display = 'block';
+			
+			ev.cancelBubble = true;
+			
+			/*document.onclick = function(){
+				oUl.style.display = 'none';
+			};*/
+			
+			addEvent(document,'click',function(){
+				oUl.style.display = 'none';
+			});
+			
+		};
+		
+		for(var i=0;i<oSel.options.length;i++){
+			var oLi = document.createElement('li');
+			oLi.innerHTML = oSel.options[i].text;
+			oLi.myValue = oSel.options[i].value;
+			oUl.appendChild(oLi);
+			
+			oLi.onclick = function(){
+				oBtn.innerHTML = this.innerHTML;
+				oSel.value = this.myValue;
+			};
+		}
+		
+	}
+	
+	function addEvent(obj,events,fn){
+		if(obj.addEventListener){
+			obj.addEventListener(events,fn,false);
+		}
+		else{
+			obj.attachEvent('on'+events,function(){
+				fn.call(obj);
+			});
+		}
+	}
+};
+
+</script>
+</head>
+
+
+<body>
+<form action="http://www.baidu.com">
+地区：
+<select id="area" name="area">
+	<option value="1">中国</option>
+	<option value="2">美国</option>
+	<option value="3">日本</option>
+	<option value="4">德国</option>
+	<option value="5">法国</option>
+</select>
+性别：
+<select name="sex" id="sex">
+	<option value="1">男</option>
+	<option value="2">女</option>
+</select>
+用户名：<input type="text" /><br />
+<input type="submit" />
+</form>
+<div class="my_select">
+	<div>
+		中国
+	</div>
+	<ul>
+		<li>中国</li>
+		<li>美国</li>
+		<li>日本</li>
+		<li>德国</li>
+	</ul>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        input{
+            text-align: center;
+        }
+        .info {
+            border: 1px solid #eee;
+            background: #FBFFE2;
+            width: 400px;
+            height: 100px;
+            font-size: 12px;
+            padding: 10px;
+            line-height: 22px;
+        }
+    </style>
+</head>
+<body>
+     <p>
+        <input type="button" value="-" />
+        <input type="text" value="0" />
+        <input type="button" value="+" />
+        结果：<input type="text" />
+    </p>
+    <p>
+        <input type="button" value="-" />
+        <input type="text" value="0" />
+        <input type="button" value="+" />
+         结果：<input type="text" />
+    </p>
+    <p>
+        <input type="button" value="-" />
+        <input type="text" value="0" />
+        <input type="button" value="+" />
+         结果：<input type="text" />
+         </p>
+         <div id="info"></div>
+    <script type="text/javascript">
+        window.onload = function () {
+            var oP = document.getElementsByTagName('p');
+            var sedata = ['98','18','38'];
+            for (var i = 0; i < oP.length; i++) {
+                var firstInt = oP[i].getElementsByTagName('input')[0];
+                var lastInt = oP[i].getElementsByTagName('input')[2];
+                firstInt.index = lastInt.index = i;
+                firstInt.onclick = function () {
+                    var textInt = oP[this.index].getElementsByTagName('input')[1]; //这里建索引是为了多个P出现时
+                    var getRes = oP[this.index].getElementsByTagName('input')[3];
+                    iNum = Number(textInt.value);
+                    iNum --;
+                    if(iNum == -1) {
+                        iNum = 0;
+                    }
+                    textInt.value = iNum;
+                    getRes.value = textInt.value * sedata[this.index];
+                }
+                lastInt.onclick = function () {
+                    var textInt = oP[this.index].getElementsByTagName('input')[1];
+                    var getRes = oP[this.index].getElementsByTagName('input')[3];
+                    iNum = Number(textInt.value);
+                    iNum ++;
+                    textInt.value = iNum;
+                    getRes.value = textInt.value * sedata[this.index];
+                    var getInfo = document.getElementById('info');
+                }
+                 
+            };
+           
+        }
+    </script>
+</body>
+</html>

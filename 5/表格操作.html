@@ -1,0 +1,195 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+    tr,td {
+        text-align: center;
+    }
+    td{
+        width: 100px;
+    }
+    a{
+        color:#eeddcc;
+    }
+</style>
+</head>
+
+<body>
+    <input type="text" />
+    <input type="button" value="添加" />
+    <input type="button" value="搜索" />
+    <input type="button" value="排序" />
+	<table id="tab" border="1px" width="600px">
+    	<thead>
+            <tr>
+                <th><span id="all">全选</span>--<span id="inver">反选</span></th>
+                <th>ID</th>
+                <th>姓名</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><label><input type="checkbox" /></label></td>
+                <td>1</td>
+                <td>leo</td>
+                <td><a href="javascript:;">删除</a></td>
+            </tr>
+            <tr>
+                <td><label><input type="checkbox" /></label>
+                <td>2</td>
+                <td>dudu</td>
+                <td><a href="javascript:;">删除</a></td>
+            </tr>
+            <tr>
+                <td><label><input type="checkbox" /></label>
+                <td>3</td>
+                <td>momo</td>
+                <td><a href="javascript:;">删除</a></td>
+            </tr>
+            <tr>
+                <td><label><input type="checkbox" /></label>
+                <td>4</td>
+                <td>momo</td>
+                <td><a href="javascript:;">删除</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        //换色
+        var getTab = document.getElementById('tab');
+        var onBtn = document.getElementsByTagName('input');
+        var getTxt = document.getElementsByTagName('input')[0];
+        var getSelect = getTab.getElementsByTagName('input');
+        var setAll = document.getElementById('all');
+        var setInver = document.getElementById('inver');
+        var power = false;
+        //全选
+        setAll.onclick = function () {
+            for (var i = 0; i < getTab.tBodies[0].rows.length; i++) {
+                var setCheck = getTab.tBodies[0].rows[i].cells[0].getElementsByTagName('input');
+                for (var j = 0; j < setCheck.length; j++) {
+                        setCheck[j].checked = true;
+                };
+            };
+        }
+        //反选
+        setInver.onclick = function () {
+             for (var i = 0; i < getTab.tBodies[0].rows.length; i++) {
+                var setCheck = getTab.tBodies[0].rows[i].cells[0].getElementsByTagName('input');
+                for (var j = 0; j < setCheck.length; j++) {
+                   setCheck[j].checked = !(setCheck[j].checked);
+                };
+            };
+        }
+        function changeColor(){
+        var iRows = getTab.tBodies[0].rows;
+        
+        for (var i = 0; i < iRows.length; i++) {
+                iRows[i].style.background = 'red';
+                iRows[i].oldColor =  iRows[i].newColor = 'red';
+
+            if(i % 2 == 0) {
+                iRows[i].style.background = 'green';
+                iRows[i].oldColor =  iRows[i].newColor = 'green';
+            }
+            iRows[i].onmouseover = function () {
+                this.oldColor = this.style.backgroundColor;
+                this.style.background = 'blue';
+            }
+            iRows[i].onmouseout = function () {
+                this.style.background = this.oldColor;
+            }
+            iRows[i].onclick = function () {
+                for (var i = 0; i < iRows.length; i++) {
+                    iRows[i].style.background = iRows[i].newColor;
+                };
+                
+                if(this.oldColor == 'yellow'){
+                    this.style.background = this.newColor;
+                    this.oldColor = this.newColor;
+                    } else {
+                this.style.background = 'yellow';
+                this.oldColor = 'yellow';
+                }
+            }
+    }
+}
+changeColor();
+//创建
+        var iRowsLength = getTab.tBodies[0].rows.length;
+        onBtn[1].onclick = function () {
+            var creRow = document.createElement('tr');
+             getTab.tBodies[0].appendChild(creRow);
+             
+             var creCel = document.createElement('td');
+            creCel.innerHTML = '<label><input type="checkbox" /></label>';
+            creRow.appendChild(creCel);
+            
+            creCel = document.createElement('td');
+            creCel.innerHTML = ++iRowsLength;
+            creRow.appendChild(creCel);
+            creCel = document.createElement('td');
+            creCel.innerHTML = getTxt.value;
+             creRow.appendChild(creCel);
+             
+             creCel = document.createElement('td');
+             var creLink = document.createElement('a');
+             creLink.innerHTML = '删除';
+             creLink.href = 'javascript:;';
+             creCel.appendChild (creLink);
+             creRow.appendChild(creCel);
+             creLink.onclick = function () {
+                getTab.tBodies[0].removeChild(this.parentNode.parentNode);
+             }
+             changeColor();
+         }
+
+         var getLink = document.getElementsByTagName('a');
+         for (var i = 0; i < getLink.length; i++) {
+             getLink[i].onclick = function () {
+                getTab.tBodies[0].removeChild(this.parentNode.parentNode);
+             }
+         };
+        //搜索
+        onBtn[2].onclick = function () {
+            var iRows = getTab.tBodies[0].rows;
+            var arr = getTxt.value.split(' ');
+            for (var i = 0; i < iRows.length; i++) {
+                 var indexCel = iRows[i].cells[2].innerHTML;
+                 for (var j = 0; j < arr.length; j++) {
+                      if(indexCel.indexOf(arr[j]) != -1){
+                          iRows[i].style.background ='#eeddcc';
+                          break;
+                 } else {
+                        iRows[i].style.background = iRows[i].oldColor;
+                     }
+                 }
+            }
+        }
+
+        //排序
+        onBtn[3].onclick =function () {
+            var iRows = getTab.tBodies[0].rows;
+            var arr = [];
+        for (var i = 0; i < iRows.length; i++) {
+            arr.push(iRows[i]);
+        };
+        arr.sort(function(a,b){
+            if(power){
+                return parseInt(b.cells[1].innerHTML)- parseInt(a.cells[1].innerHTML);
+            } else {
+                 return parseInt(a.cells[1].innerHTML)- parseInt(b.cells[1].innerHTML);
+            }
+        });
+          power = !power;
+            for (var j = 0; j < arr.length; j++) {
+                getTab.tBodies[0].appendChild(arr[j]);
+            };
+          
+        }
+    </script>
+</body>
+</html>

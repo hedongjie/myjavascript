@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+  <ul>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+</body>
+</html>
+
+<script>
+
+var aLi=document.getElementsByTagName('li');
+var oldColor=''; 
+
+//this  事件处理函数中使用。
+
+for(var i=0; i<aLi.length; i++){
+	
+	aLi[i].style.background='blue';
+	
+	if(i%2==0){
+		
+		aLi[i].style.background='yellow';
+		
+	}
+	
+	aLi[i].oldColor=aLi[i].style.backgroundColor;
+    document.title = aLi[i].oldColor; //最后一个li是黄色
+	aLi[i].newColor='';
+	
+	aLi[i].onmouseover=function(){
+		
+		this.newColor=this.style.backgroundColor;
+		document.title = this.newColor; //存入每一个li颜色
+		this.style.background='#333';	
+		
+	};
+	
+	aLi[i].onmouseout=function(){
+	
+        this.style.background=this.newColor; //相当于还愿
+		
+	};
+	
+	aLi[i].onclick=function(){
+		
+		for(var i=0; i<aLi.length; i++){
+		
+			aLi[i].style.background=aLi[i].oldColor; //重新隔行
+			
+		}
+	    //alert(this.newColor);//执行else
+		if(this.newColor=='red'){
+			
+			this.style.background=this.oldColor; //相当于整体重新隔行
+			this.newColor=this.oldColor;
+			
+			
+		}else{
+			
+			this.style.background='red'; 
+			this.newColor='red';	//为第二次做铺垫
+			
+		}
+		
+	};
+	
+	
+	
+	
+}
+
+
+</script>

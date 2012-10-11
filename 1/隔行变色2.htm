@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+    <ul>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    	<li></li>
+    </ul>
+    <script type="text/javascript">
+        var getItem = document.getElementsByTagName('li');
+        var oldColor = null;
+        for (var i = 0; i < getItem.length; i++) {
+              getItem[i].style.background = 'blue';
+            if(i % 2 == 0) {
+              getItem[i].style.background= 'red';
+            }
+            getItem[i].onmouseover = function () {
+                oldColor  = this.style.backgroundColor;
+                this.style.background = 'yellow';
+            }
+            getItem[i].onmouseout = function () {
+                this.style.background = oldColor;
+            }
+            getItem[i].onclick = function () {
+                /*if(oldColor =='green') {
+                    if(this.index % 2 == 0) { //是因为索引
+                    this.style.background = 'red';
+                    oldColor = 'red';
+                    } else {
+                     this.style.background = 'blue';
+                     oldColor = 'blue';
+                    }
+                } else {
+                this.style.backgroundColor = 'green';
+                oldColor = this.style.backgroundColor;
+                //document.title = oldColor;
+                }*/
+                for (var i = 0; i < getItem.length; i++) {
+                    getItem[i].style.background = 'blue';
+                    if(i % 2 == 0) {
+                    getItem[i].style.background= 'red';
+                    }
+                      document.title = this.style.background;
+                }
+              
+                if(oldColor =='green')  {
+                        oldColor= this.style.background;
+                } else {
+                    this.style.background = 'green';
+                    oldColor = this.style.background;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

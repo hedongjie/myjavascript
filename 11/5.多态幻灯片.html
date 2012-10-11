@@ -1,0 +1,220 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+* { margin: 0; padding: 0; }
+#show,#show1,#show2{ margin: 50px auto 0; width: 490px; height: 170px; border: 1px solid #000; position: relative; overflow: hidden; }
+ul { list-style: none; position: absolute; left: 0; top: 0; }
+img { display: block; }
+.num { position: absolute; right: 10px; bottom: 10px; background: white; opacity: 0.6; filter: alpha(opacity=30); padding: 1; }
+.num span { padding: 0 4px; text-align: center; line-height: 20px; color: #F60; }
+.num span.active { background: #F60; color: white; font-weight: bold; }
+#show .default {
+    display: none;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+#show..change {
+     display: block;
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+</style>
+</head>
+<script type="text/javascript">
+window.onload = function() {
+	new function() {
+		sildeShow('show', 'opacity');
+		sildeShow('show1');
+	    sildeShow('show2', 'up');
+	}
+	function sildeShow(obj, path) {
+		path = path || 'left'; //默认
+		var obj = document.getElementById(obj);
+		var link = obj.getElementsByTagName('span');
+		var list = obj.getElementsByTagName('ul')[0];
+		var listItem = list.getElementsByTagName('li');
+		var iNum = 0,
+		add = 0;
+		var timer = null;
+		//var power = true;
+		minWidth = listItem[0].offsetWidth;<!--{{{-->
+		minHeight = listItem[0].offsetHeight;
+		if (path == 'left') {
+			for (var i = 0; i < listItem.length; i++) {
+				setFloat(listItem[i]); //设置float
+			}
+			list.style.width = minWidth * listItem.length + 'px';
+		} else if (path == 'opacity') {
+			for (var i = 0; i < listItem.length; i++) {
+				listItem[i].className = 'default';
+			}
+			listItem[iNum].className = 'change';
+		}
+		for (var i = 0; i < link.length; i++) {
+			link[i].index = i;
+			link[i].onclick = function() {
+				for (var i = 0; i < link.length; i++) {
+					link[i].className = '';
+				}
+				this.className = 'active';
+				if (path == 'left') {
+					startMove(list, 'left', - (this.index * minWidth));
+				} else if (path == 'up') {
+					startMove(list, 'top', - (this.index * minHeight));
+				} else if (path == 'opacity') {
+					if (iNum != this.index) {
+						for (var i = 0; i < listItem.length; i++) {
+							listItem[i].style.display = 'none';
+							listItem[i].style.opacity = 0;
+							listItem[i].style.filter = 'alpha(opacity=0)';
+						}
+						listItem[this.index].style.display = 'block';
+						startMove(listItem[this.index], 'opacity', 100);
+						iNum = this.index;
+					}
+				}
+			}<!--}}}-->
+            function autoPlay() {
+                obj.power = true;
+                if(obj.power != true) return;
+                add ++;
+                add %=listItem.length
+				if (add == listItem.length) {
+					add = 0;
+                }
+                console.log(add);
+				obj.timer = setTimeout(function() {
+					for (var i = 0; i < link.length; i++) {
+						link[i].className = '';
+					}
+					link[add].className = 'active';
+					if (path == 'left') {
+						startMove(list, 'left', - (add * minWidth), function() {
+							obj.power && autoPlay(); //开关
+						});
+					} else if (path == 'up') {
+						startMove(list, 'top', - (add * minHeight), function() {
+							obj.power && autoPlay();
+						});
+					} else if (path == 'opacity') {
+						for (var i = 0; i < listItem.length; i++) {
+							listItem[i].style.display = 'none';
+							listItem[i].style.opacity = 0;
+							listItem[i].style.filter = 'alpha(opacity=0)';
+						}
+						listItem[add].style.display = 'block';
+						startMove(listItem[add], 'opacity', 100, function() {
+							obj.power && autoPlay();
+						});
+					}
+				},1500);
+			}
+		}
+		autoPlay();
+		obj.onmouseover = function() {
+			clearInterval(obj.timer);
+			obj.power = false;
+		}
+		obj.onmouseout = function() {
+            obj.power = true;
+            add--;
+			autoPlay();
+		}
+	}
+
+	//运动
+	function startMove(obj, attr, iTargent, fn) {
+		clearInterval(obj.timer)
+		var speed = 0;
+		var currentValue = 0;
+		obj.timer = setInterval(function() {
+			if (attr == 'opacity') {
+				currentValue = Math.round(parseFloat(getStyle(obj, 'opacity')) * 100);
+			} else {
+				currentValue = parseInt(getStyle(obj, attr));
+			}
+			speed = (iTargent - currentValue) / 8
+			speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+			if (currentValue == iTargent) {
+				clearInterval(obj.timer);
+				fn && fn();
+			} else {
+				if (attr == 'opacity') {
+					obj.style.opacity = (currentValue + speed) / 100;
+					obj.style.filter = 'alpha(opacity=' + (currentValue + speed) + ')';
+				} else {
+					obj.style[attr] = currentValue + speed + 'px';
+				}
+			}
+		},30);
+	}
+	//获取
+	function getStyle(obj, attr) {
+		if (obj.currentStyle) {
+			return obj.currentStyle[attr];
+		} else {
+			return getComputedStyle(obj, false)[attr];
+		}
+	}
+	function setFloat(obj) {
+		obj.style.cssFloat = 'left';
+		obj.style.styleFloat = 'left';
+	}
+}
+</script>
+<body>
+	<div id="show">
+    	<ul>
+        	<li><img src="./img/t1.jpg" /></li>
+        	<li><img src="./img/t2.jpg" /></li>
+        	<li><img src="./img/t3.jpg" /></li>
+        	<li><img src="./img/t4.jpg" /></li>
+        	<li><img src="./img/t5.jpg" /></li>
+        </ul>
+        <div class="num">
+        	<span class="active">1</span>
+        	<span>2</span>
+        	<span>3</span>
+        	<span>4</span>
+        	<span>5</span>
+        </div>
+    </div>
+    <div id="show1">
+    	<ul>
+ 	<li><img src="./img/t1.jpg" /></li>
+        	<li><img src="./img/t2.jpg" /></li>
+        	<li><img src="./img/t3.jpg" /></li>
+        	<li><img src="./img/t4.jpg" /></li>
+        	<li><img src="./img/t5.jpg" /></li>
+        </ul>
+        <div class="num">
+        	<span class="active">1</span>
+        	<span>2</span>
+        	<span>3</span>
+        	<span>4</span>
+        	<span>5</span>
+        </div>
+    </div>
+    <div id="show2">
+    	<ul>
+   	<li><img src="./img/t1.jpg" /></li>
+        	<li><img src="./img/t2.jpg" /></li>
+        	<li><img src="./img/t3.jpg" /></li>
+        	<li><img src="./img/t4.jpg" /></li>
+        	<li><img src="./img/t5.jpg" /></li>
+        </ul>
+        <div class="num">
+        	<span class="active">1</span>
+        	<span>2</span>
+        	<span>3</span>
+        	<span>4</span>
+        	<span>5</span>
+        </div>
+    </div>
+    <script type="text/javascript">
+    </script>
+</body>
+</html>

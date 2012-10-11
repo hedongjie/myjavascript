@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>导航</title>
+    <style type="text/css">
+body {
+            font:12px/1.5 arial,sans-serif;
+        }
+        a { 
+            text-decoration: none;
+            color: #fff;
+        }
+        #nav{
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            background: url(./image/navBg.gif) repeat-x;
+            width: 800px;
+        }
+        #nav li{
+            float: left;
+            text-align: center;
+            font-size: 14px;
+            padding:13px 11px 10px 10px;
+            line-height: 15px;
+            margin:0 10px;
+          
+        }
+        #subNav {
+            background: #EFF4F7;
+            height: 30px;
+        width: 800px;
+        }
+        #subNav a {
+            color: #000;
+            font-size: 12px;
+            line-height: 28px;
+            margin: 0 5px 0 20px;
+    }
+    #subNav a:hover {
+        color: #8C2C9A;
+    }
+    #nav .active {
+        background: url(./image/current.gif)  no-repeat scroll right 3px transparent;
+        font-weight: bold;
+    }
+    .active a{
+        color: #000;
+    }
+    </style>
+</head>
+<body>
+    <ul id="nav">
+        <li class="active"><a href="javascript:;">娱乐首页</a></li>
+        <li><a href="javascript:;">明星</a></li>
+        <li><a href="javascript:;">电影</a></li>
+        <li><a href="javascript:;">电视</a></li>
+        <li><a href="javascript:;">音乐</a></li>
+        <li><a href="javascript:;">图片</a></li>
+        <li><a href="javascript:;">星座</a></li>
+        <li><a href="javascript:;">演出</a></li>
+        <li><a href="javascript:;">凤凰网·非常道</a></li>
+        <li><a href="javascript:;">官网</a></li>
+    </ul>
+    <div id="subNav">
+      </div>
+  </div>
+    <script type="text/javascript">
+        new function () {
+        //获取每个li
+    var navItem = document.getElementById('nav').getElementsByTagName('li');
+    var subNav = document.getElementById('subNav');
+    //定义数组
+    var  setData = ['<a href="#">内地荧屏</a> <a href="#">内地荧屏</a> <a href="#">赵文瑄独家做客</a> <a href="#">视频播放</a> <a href="#">完整节目视频</a> <a href="#">内地荧屏</a>',
+    '<a href="#">日韩潮流</a> <a href="#">海清做客</a> <a href="#">日韩潮流</a>',
+    '<a href="#">欧美风暴</a> <a href="#">欧美风暴</a> <a href="#">欧美风暴</a>',
+    '<a href="#">综艺星天地</a> <a href="#">综艺星天地</a> <a href="#">综艺星天地</a>',
+    '<a href="#">专题</a> <a href="#">专题</a> <a href="#">专题</a>',
+    '<a href="#">演唱会</a> <a href="#">古典艺术</a> <a href="#">免费抢票</a>',
+    '<a href="#">视频播放</a> <a href="#">完整节目视频</a> <a href="#">内地荧屏</a> <a href="#">视频播放</a> <a href="#">完整节目视频</a> <a href="#">内地荧屏</a>',
+    '<a href="#">综艺戏曲</a> <a href="#">内地荧屏</a> <a href="#">所有嘉宾列表</a>',
+    '<a href="#">内地荧屏</a> <a href="#">综艺戏曲</a> <a href="#">内地荧屏</a>',
+    '<a href="#">综艺戏曲</a> <a href="#">张绍刚独家做客</a> <a href="#">内地荧屏</a> <a href="#">高清剧照</a>'
+    ];
+    var isNumber =0;//先存一个数
+    for (var i = 0; i < navItem.length; i++) {
+        navItem[i].index = i;  //存入索引值(添加自定义属性)
+        subNav.innerHTML = setData[0]; //默认显示 
+        navItem[i].onmouseover = function () {
+            for (var i = 0; i < navItem.length; i++) {
+                navItem[i].className = "" //清空第零个清空所有的
+                this.className = "active"; //给当前个加入active
+            };
+            subNav.innerHTML = setData[this.index]; //插入数据
+            //isNumber = this.index;  //存入当前索引
+
+        }
+    };
+}
+    </script>
+</body>
+</html>

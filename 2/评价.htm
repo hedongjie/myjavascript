@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+ul {padding: 0;}
+	li {list-style: none; width: 30px; height: 28px; background: url(star.gif) no-repeat top; float: left;}
+	li.active {background: url(star.gif) no-repeat bottom;}
+    
+    </style>
+</head>
+<body>
+<ul>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+
+  <script type="text/javascript">
+/*window.onload=function(){
+var aLi=document.getElementsByTagName('li');
+for(var i=0; i<aLi.length; i++){
+	aLi[i].leo=i;
+	aLi[i].onmouseover=function(){
+		for(var i=0; i<=this.leo; i++){
+			aLi[i].className='active';	
+			
+		}
+    };
+}
+}*/
+
+  window.onload = function () {
+      var power = true;
+      iNum = 0;
+        var getItem = document.getElementsByTagName('li');
+        for (var i = 0; i < getItem.length; i++) {
+            getItem[i].index = i;
+            getItem[i].onmouseover = function () {
+                for (var i = 0; i <= this.index; i++) {
+                    getItem[i].className = 'active';
+                };
+            }
+            getItem[i].onmouseout = function () {
+                for (var i = 0; i <= this.index; i++) {
+                    getItem[i].className = '';
+                };
+                return;
+            }
+            getItem[i].onclick = function () {
+                alert('你的评分是'+(this.index+1));
+        };
+        }
+  
+  }
+    </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        body{
+        background: #6A687D;
+        }
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style-type: none
+        }
+        #menu {
+            background: #FCFCFC;
+            display: none;
+            position: absolute;
+            border-radius: 3px;
+            font-size:12px;
+            width: 100px;
+        }
+        li{
+            cursor: pointer;
+            padding: 5px 25px;
+            line-height: 22px;
+            position: relative;
+        }
+        #sub-menu {
+            position: absolute;
+            left: 115px;
+            top: 0;
+            width: 110px;
+            background: #fcfcfc;
+            border-radius: 3px;
+            display: none;
+        }
+        a{
+            text-decoration: none;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div id="menu">
+    <ul class="content-text-menu">
+        <li><a href="http://www.rankber.com" target="_blank">我的Blog</a></li>
+    	<li>我的电脑</li>
+    	<li>我的文件夹</li>
+    	<li>上传文件</li>
+    	<li>主题设置</li>
+        <li>QQ云词典</li>
+    	<li>显示桌面</li>
+        <li>添加
+        <ul id="sub-menu">
+        	<li>添加应用</li>
+        	<li>添加联系人</li>
+        </ul>
+        </li>
+    </ul>
+    </div>
+    <script type="text/javascript">
+var getMenu = document.getElementById('menu');
+var getItem = document.getElementsByTagName('li');
+var subMenu = document.getElementById('sub-menu');
+var getUl = document.getElementsByTagName('ul')[0];
+var iNum = 0;
+var move = null;
+document.oncontextmenu = function(ev) {
+    var oEvent = ev || event;
+    var getL = oEvent.clientX;
+    var MaxWidth = document.documentElement.clientWidth - getMenu.offsetWidth;
+    console.log(getL);
+    console.log(MaxWidth);
+    if(getL > MaxWidth) {
+        	getMenu.style.left = MaxWidth + 'px';
+	        getMenu.style.top = oEvent.clientY + 'px';
+    } else {
+	        getMenu.style.left = oEvent.clientX + 'px';
+	        getMenu.style.top = oEvent.clientY + 'px';
+	       
+    }
+    getMenu.style.display = 'block';
+	return false;
+}
+getMenu.onclick = function(ev) {
+	var oEvent = ev || event;
+	oEvent.cancelBubble = true;
+}
+for (var i = 0; i < getItem.length; i++) {
+	getItem[i].index = i;
+	getItem[i].onmouseover = function() {
+		getItem[iNum].style.background = '';
+		this.style.background = '#3099E5';
+		this.style.borderRadius = '3px';
+		iNum = this.index;
+		if (this == getUl.lastElementChild) { //TODO 离开有一些逻辑
+			clearInterval(move); //这里需要注意
+			this.firstElementChild.style.display = 'block';
+			this.onmouseout = function() {
+				_this = this;
+				move = setInterval(function() {
+					_this.firstElementChild.style.display = 'none';
+				},
+				300);
+			}
+		}
+	}
+	for (var j = 0; j < subMenu.children.length; j++) {
+		subMenu.children[j].onmouseover = function() {
+			for (var i = 0; i < subMenu.children.length; i++) {
+				subMenu.children[i].style.background = '';
+			};
+			this.style.background = '#3099E5';
+			this.style.borderRadius = '3px';
+		}
+	};
+	subMenu.onmouseout = function() {
+		clearInterval(move);
+		subMenu.style.display = 'none';
+	}
+}
+document.onclick = function() {
+	getMenu.style.display = 'none';
+}
+function last(obj) {
+	return obj.lastElementChild || obj.lasChild;
+}
+function first(obj) {
+	return obj.firstElementChild || obj.firstChild;
+}
+    </script>
+</body>
+</html>

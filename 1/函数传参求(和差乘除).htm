@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+    
+<script type="text/javascript">
+function plusMinus() {
+	inum = arguments[0]; //初始化0
+    //alert(arguments[arguments.length - 1]);//最后一加1 就取得了符号
+	if (arguments[arguments.length - 1] == '+') {
+		for (var i = 1; i < arguments.length - 1; i++) {
+			inum += arguments[i];
+		};
+		return inum;
+	} else if (arguments[arguments.length - 1] == '-') {
+		for (var i = 1; i < arguments.length - 1; i++) {
+			inum -= arguments[i];
+		};
+		return inum;
+	} else if (arguments[arguments.length - 1] == '*') {
+		for (var i = 1; i < arguments.length - 1; i++) {
+			inum *= arguments[i];
+		};
+		return inum;
+	} else {
+		for (var i = 1; i < arguments.length - 1; i++) {
+			inum /= arguments[i];
+		};
+		return inum;
+	}
+};
+alert(plusMinus(1,2,3,4,3,5,10,11,12,30,'+'));
+//alert(plusMinus(10,2,3,'-'));
+//alert(plusMinus(1,2,'*'));
+//alert(plusMinus(10,2,'/'));
+    </script>
+</body>
+</html>

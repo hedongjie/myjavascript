@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        body {
+        background: #1D335C;
+        }
+        #wrapper {
+            width: 475px;
+            height: 124px;
+            /*border: 1px solid #eee;*/
+            margin: 40px auto;
+        }
+        #content {
+            height: 240px;
+            width: 426px;
+            overflow: hidden;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+        #wrapper a{
+            display: inline-block;
+            height: 240px;
+            width: 24px;
+            outline: none;
+
+        }
+        #prev {
+            float: left;
+            background: url(./images/arrow-prev.png) center center no-repeat;
+        }
+        #next {
+            float: right;
+             background: url(./images/arrow-next.png) center center no-repeat;
+         }
+         ul {
+          list-style-type: none;
+            padding: 0;
+            margin: 0;
+         }
+        #list {
+           
+            --overflow: hidden;
+            position: absolute;
+        }
+        #list img {
+            width: 426px;
+            height: 240px;
+            padding:0 4px 0 0;
+        }
+        #list li {
+            position: absolute;
+            opacity: 0;
+        }
+        #list .weight {
+            position: relative;
+            float:left;
+        }
+        #link {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+         }
+         #link li {
+            width: 25px;
+            height: 25px;
+            background: #1D335C;
+            line-height: 25px;
+            text-align:center;
+            float: left;
+            margin-left: 5px;
+            color: #fff;
+        }
+            #link .active {
+                background: #009EA1;
+            }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <a id="prev" href="javascript:;"></a>
+       
+        <a id="next" href="javascript:;"></a>
+         <div id="content">
+        <ul id="list">
+            <li style="opacity: 1;"><img src="./images/1.jpg" alt="" /></li>
+            <li><img src="./images/2.jpg" alt="" /></li>
+            <li><img src="./images/3.jpg" alt="" /></li>
+            <li><img src="./images/4.jpg" alt="" /></li>
+            <li><img src="./images/5.jpg" alt="" /></li>
+        </ul>
+        <ul id="link">
+            <li class="active">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
+        </div>
+    </div>
+    <script src="./move.js" type="text/javascript"></script>
+    <script type="text/javascript">
+       //TODO 先把渐隐渐变做出来
+    new function () {
+            var list = document.getElementById('list');
+            var listItem =list.getElementsByTagName('li')//图片
+            var linkItem = document.getElementById('link').getElementsByTagName('li');//链接
+            var prev = document.getElementById('prev');
+            var next = document.getElementById('next');
+            for (var i = 0; i < linkItem.length; i++) {
+                linkItem[i].index = i;
+                linkItem[i].onclick = function () {
+                for (var i = 0; i < linkItem.length; i++) {
+                    linkItem[i].className = '';
+                    //listItem[i].style.opacity = 0;
+                    startMove(listItem[i],{opacity:0}); //不明白。
+                }
+                this.className = 'active';
+                startMove(listItem[this.index],{opacity: 100});
+                }
+            }
+            //点击
+            prev.onclick = function () {
+                list.style.overflow = 'hidden';
+                list.style.width=listItem[0].offsetWidth * listItem.length + 'px';
+                for (var i = 0; i < listItem.length; i++) {
+                    listItem[i].className = 'weight';
+                    //setFloat(listItem[i],'left');
+                    //listItem[i].style.position = 'relative';
+                    //listItem[i].style.cssFloat = 'left';
+                };
+            }
+    }
+function setFloat(obj,attr) {
+         return obj.style.cssFloat = attr;
+         return obj.style.styleFloat = attr;
+}
+    </script>
+</body>
+</html>

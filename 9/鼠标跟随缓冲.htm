@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+    <style type="text/css">
+        #box {
+            width: 60px;
+            height: 60px;
+            background: green;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <script type="text/javascript">
+        var getBox = document.getElementById('box');
+        var timer = null;
+        document.onclick = function (event) {
+            var oEvent = event || window.event;
+            startMove(oEvent.clientX,oEvent.clientY);
+        }
+        function startMove (getX,getY) {
+            clearInterval(timer);
+            timer = setInterval ( function () {
+                    var isPeed = (getX - getBox.offsetLeft)/8
+                    isPeed = isPeed > 0 ? Math.ceil(isPeed) : Math.floor(isPeed); //速度
+                    var isPeed2 = (getY - getBox.offsetTop)/8
+                    console.log(isPeed);
+                    isPeed2 = isPeed2 > 0 ? Math.ceil(isPeed2) : Math.floor(isPeed2); //速度
+                    if(getBox.offsetLeft == getX && getBox.offsetTop == getY) {
+                        clearInterval(timer);
+                    } else {
+                        getBox.style.left = getBox.offsetLeft + isPeed + 'px';
+                        getBox.style.top = getBox.offsetTop + isPeed2 + 'px';
+                    }
+            },30);
+        }
+    </script>
+</body>
+</html>

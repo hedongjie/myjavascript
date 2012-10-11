@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>简单比较</title>
+</head>
+<body>
+<input type="input" value="" id="first" />
+<input type="input" value="" id="last" />
+<input type="button" value="比较" id="btn" />
+<script type="text/javascript">
+    window.onload = function () {
+        var first = document.getElementById('first');
+        var last = document.getElementById('last');
+        var btn = document.getElementById('btn');
+        first.focus();
+        btn.onclick = function () {
+            if(first.value == "" || last.value == "") {
+                alert("请输入数字");
+                first.focus();
+            }
+            else if(isNaN(first.value && last.value)) {
+                alert("您输入的非数字");
+                first.value = "";
+                last.value = "";
+                first.focus();
+            }else if(Number(first.value) > Number(last.value)) {
+                alert (first.value);
+            }else {
+                alert(last.value)
+            }
+        }
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无标题文档</title>
+<script>
+window.onload=function()
+{	
+	document.onmousedown=function(ev)
+	{	
+		var oDiv=document.createElement('div');
+		oDiv.id='div1';
+		document.body.appendChild(oDiv);
+		var ev = ev || window.event;
+		var x=ev.clientX;
+		var y=ev.clientY;
+		document.onmousemove=function(ev)
+        {
+            var ev = ev || window.event;
+			var oDiv=document.getElementById('div1');
+			var x1=ev.clientX;
+            var y1=ev.clientY;
+            oDiv.style.left=Math.min(x,x1)+'px';
+			oDiv.style.top=Math.min(y,y1)+'px';
+			oDiv.style.width=Math.abs(x1-x)+'px';
+			oDiv.style.height=Math.abs(y1-y)+'px';
+			oDiv.style.border='1px solid red';
+			oDiv.style.position='absolute';
+        }
+        document.onmouseup = function () {
+            document.onmousemove = null;
+            document.onmouseup = null;
+        }
+	}
+}
+</script>
+</head>
+<body>
+</body>
+</html>

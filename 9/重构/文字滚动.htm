@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="./move.js" type="text/javascript"></script>
+    <style type="text/css">
+        #content {
+            overflow: hidden;
+            height: 22px;
+            position: relative;
+            margin: 100px ;
+            border: 1px solid #ccc;
+            width: 200px;
+            text-align:center;
+        }
+        #list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            top:0;
+        }
+        #list li {
+            font-size: 12px;
+            line-height: 24px;
+        }
+    </style>
+</head>
+<body>
+      <!--<a id="prev" href="javascript:;">向上</a>-->
+      <!--<a id="next" href="javascript:;">向下</a>-->
+    <div id="content">
+      
+    <ul id="list">
+        <li>家装抢购---- TOP热榜等你来~ </li>
+        <li>三联书店80周年庆震撼低价</li>
+         <li>家装抢购 TOP热榜等你来~ </li>
+        <li>30万韩国美丽计划等你来</li>
+        <li>隐形眼镜、药品疯抢 </li>
+        <li>三联书店8-------0周年庆震撼低价</li>
+    </ul>
+    </div>
+    <script type="text/javascript">
+        //ultop版<!--{{{-->
+        /*new function () {
+            var list = document.getElementById('list');
+            var timer = null;
+            var current = 0;
+            var len = list.getElementsByTagName('li');
+            var minHeight = parseInt(getStyle(len[0],'height'));
+            timer = setInterval( function (){
+                current++;
+                current%=len.length;
+                console.log(current);
+                startMove(list,'top',current * -minHeight);
+            },2200);
+            }*/<!--}}}-->
+//arr版<!--{{{-->
+    /*new function () {
+        var list = document.getElementById('list');
+        var item = list.getElementsByTagName('li');
+         var timer = null;
+         var current = 0;
+         var arr = [];
+         var prev = document.getElementById('prev');
+         var next = document.getElementById('next');
+         for (var i = 0; i < item.length; i++) {
+             arr.push(item[i].innerHTML);
+           console.log(arr);
+         };
+         prev.onclick = function () {
+             arr.push(arr.shift());
+             for (var i = 0; i < item.length; i++) {
+                 item[i].innerHTML = arr[i];
+             };
+         }
+         next.onclick = function () {
+               arr.unshift(arr.pop());
+             for (var i = 0; i < item.length; i++) {
+                 item[i].innerHTML = arr[i];
+             };
+         }
+
+    }*/<!--}}}-->
+    new function () {
+      var list = document.getElementById('list');
+            var list = document.getElementById('list');
+            var timer = null;
+            var current = 0;
+            var power = true;
+            var len = list.getElementsByTagName('li');
+            var minHeight = parseInt(getStyle(len[0],'height'));
+           list.innerHTML+=list.innerHTML; //复制一份
+            timer = setInterval( function (){
+                    console.log(current);
+                if(list.offsetTop <= -(list.offsetHeight/2)) {
+                list.style.top = 0;
+                }
+                startMove(list,'top',  parseInt(getStyle(list,'top')) +(-minHeight));
+            },2200);
+    }
+    </script>
+</body>
+</html>

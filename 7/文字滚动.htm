@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+    <style type="text/css">
+        #scrollbar {
+            height: 500px;
+            width: 30px;
+            background: green;
+            border-radius: 2px;
+            position: absolute;
+        }
+        #scrollcake {
+            width: 30px;
+            height: 30px;
+            background: red;
+            position: absolute;
+        }
+        #contentwrap {
+            overflow: hidden;
+            position: absolute;
+            height: 500px;
+            width: 500px;
+            border: 1px solid red;
+              left: 40px;
+            top: 10px;
+
+        }
+        #content {
+           
+            position: absolute;
+          
+            left: 0;
+            top: 0;
+            width: 500px;
+           
+        }
+    </style>
+</head>
+<body>
+    <div id="scrollbar">
+        <div id="scrollcake"></div>
+    </div>
+    <div id="contentwrap">
+    <div id="content">
+        sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />
+        sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />
+        sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />
+        sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />sddfdfd<br />
+    </div>
+    </div>
+    <script type="text/javascript">
+        new function () {
+            var scrollcake = document.getElementById('scrollcake');
+            var scrollbar = document.getElementById('scrollbar');
+            var content = document.getElementById('content');
+            var contentwrap = document.getElementById('contentwrap');
+            var maxheight = scrollbar.offsetHeight - scrollcake.offsetHeight;
+            scrollcake.onmousedown = function (event) {
+                var oEvent = event || window.event;
+                var disY = oEvent.clientY - this.offsetTop;
+                //console.log(oEvent.clientY +'-'+this.offsetTop);
+                document.onmousemove = function (event) {
+                    var oEvent = event || window.event;
+                    var topHeight =  oEvent.clientY - disY;
+                    //console.log(topHeight);
+                    if(topHeight <= 0) {
+                        topHeight = 0;
+                       //console.log(scrollbar.offsetHeight);
+                    } else if(topHeight >= maxheight ) {
+                        topHeight = maxheight ;
+                    }
+                    //取比例
+                    var isCale = topHeight / maxheight;
+                    document.title = isCale;
+                    scrollcake.style.top =topHeight + 'px';
+                    console.log(content.offsetHeight);
+                    if(content.offsetHeight < contentwrap.offsetHeight) {
+                    content.offsetHeight + contentwrap.offsetHeight;
+                    } else {
+                    content.style.top = (contentwrap.offsetHeight - content.offsetHeight) * isCale + 'px';
+                    }
+                   
+                }
+                document.onmouseup = function () {
+                    document.onmousemove = document.onmouseup = null;
+                }
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>

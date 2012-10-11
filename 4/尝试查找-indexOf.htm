@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+    
+    </style>
+</head>
+<body>
+    <input type="text" />
+    <input type="text" />
+<input type="button" value="查找" />
+<script type="text/javascript">
+    var getInput = document.getElementsByTagName('input');
+    var onBtn = getInput[2];
+    var data = null;
+    var attr = [];
+    onBtn.onclick = function () {
+        var getTxt = getInput[0].value; //第一个
+        var inputTxt = getInput[1].value;//第二个
+        for (var i = 0; getTxt.indexOf(inputTxt,i) != -1; i++) {
+                i = getTxt.indexOf(inputTxt,i); //从1后面找，找到了他当前位置给i,所以会从当前i开始查找，当前位置它做为了初始值
+                attr.push(i+1);
+        }
+        alert("出现的次数为:"+attr.length+"分别在"+attr);
+        attr.length = 0;
+    }
+
+</script>
+</body>
+</html>

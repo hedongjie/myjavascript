@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="./move.js" type="text/javascript"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            background: #5B7191;
+        }
+        #wrapper {
+            width: 400px;
+            margin: 60px auto;
+        }
+        #wrapper img {
+            width: 100px;
+            height: 100px;
+            display: block;
+            border: 4px solid #eee;
+            margin:2px;
+        }
+        #list{
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            width: 500px;
+        }
+        #list li {
+            float: left;
+          
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+    <ul id="list">
+        <li><img src="./images/k1.jpg" alt="" /></li>
+        <li><img src="./images/k2.jpg" alt="" /></li>
+        <li><img src="./images/k3.jpg" alt="" /></li>
+        <li><img src="./images/k4.jpg" alt="" /></li>
+        <li><img src="./images/k5.jpg" alt="" /></li>
+        <li><img src="./images/k6.jpg" alt="" /></li>
+        <li><img src="./images/k7.jpg" alt="" /></li>
+        <li><img src="./images/k8.jpg" alt="" /></li>
+        <li><img src="./images/k9.jpg" alt="" /></li>
+        <li><img src="./images/k10.jpg" alt="" /></li>
+        <li><img src="./images/k11.jpg" alt="" /></li>
+        <li><img src="./images/k12.jpg" alt="" /></li>
+        <li><img src="./images/k13.jpg" alt="" /></li>
+        <li><img src="./images/k14.jpg" alt="" /></li>
+        <li><img src="./images/k15.jpg" alt="" /></li>
+        <li><img src="./images/k16.jpg" alt="" /></li>
+    </ul>
+    </div>
+    <script type="text/javascript">
+        //TODO IE下有问题
+        new function () {
+        var arr = [];
+        var itemImg = document.getElementById('list').getElementsByTagName('img');
+        //把位置存入数据用json数据
+        //alert(getPos(itemImg[0]).t);
+        for (var i = 0; i < itemImg.length; i++) {
+            arr.push({left:getPos(itemImg[i]).l,top:getPos(itemImg[i]).t});//取绝对位置
+        };
+        for (var i = 0; i < arr.length; i++) {
+            itemImg[i].style.position = 'absolute';
+            itemImg[i].style.left = arr[i].left -2 + 'px';//两像素的margin
+            itemImg[i].style.top = arr[i].top -2 + 'px';
+        }
+        for (var i = 0; i < itemImg.length; i++) {
+            itemImg[i].onmouseover = function () {
+                for (var i = 0; i < itemImg.length; i++) {
+                    itemImg[i].style.zIndex = 0;
+                };
+                _this = this;
+               // alert(this.parentNode.tagName);
+                this.style.zIndex = 1;
+                startMove(this,{width:'50',height:'50',marginTop:'25',marginLeft:'25'},function(){
+                        startMove(_this,{width:'200',height:'200',marginTop:'-50',marginLeft:'-50'});
+                    });
+            }
+            itemImg[i].onmouseout = function () {
+                  startMove(this,{width:'100',height:'100',marginTop:'2',marginLeft:'2'});
+            }
+        };
+    }
+function getPos(obj) {
+	var iPos = {l: 0,t: 0};
+	while (obj) {
+		iPos.l += obj.offsetLeft;
+		iPos.t += obj.offsetTop;
+		obj = obj.offsetParent;
+	}
+	return iPos;
+}
+    </script>
+</body>
+</html>

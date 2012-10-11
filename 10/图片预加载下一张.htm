@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #box {
+            width: 500px;
+            height: 300px;
+            border: 1px solid #ccc;
+            background: url(./images/loading.gif) center center no-repeat;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"><img src="http://www.idaocao.com/daocaoeditor/2009_image/201105/201151212624352.jpg" alt="" /></div>
+    <p id="info"></p>
+    <input type="button" id="btn" value="加载" />
+    <script type="text/javascript">
+         var arr = ['http://www.idaocao.com/daocaoeditor/2009_image/201105/201151212624352.jpg',
+                    'http://www.cnnb.com.cn/pic/0/00/87/48/874854_528292.jpg',
+                    'http://pic.dbw.cn/0/03/75/21/3752149_928458.jpg',
+                    'http://www.zjol.com.cn/pic/0/03/53/42/3534230_456655.jpg',
+                    'http://image2.sina.com.cn/dy/o/2007-03-29/91d0d30f5429eda48df203ca681771a7.jpg',
+                    'http://img1.gtimg.com/sports/pics/hv1/49/132/861/56020234.jpg'
+                    ]
+        var itemImg = document.getElementById('box').getElementsByTagName('img')[0];
+        var info = document.getElementById('info');
+        var btn = document.getElementById('btn');
+        var iNum = 0;
+        loadImg = new Image();//
+        function loading () {
+            iNum ++;
+            info.innerHTML = '准备加载第' + (iNum+1) + '张图片';
+            loadImg.src = arr[iNum];
+            loadImg.onload = function () {
+                info.innerHTML = '第'+(iNum+1)+'加载完了……';
+            }
+        }
+loading();
+btn.onclick = function(){
+    if(iNum >=arr.length) {
+        iNum = 0;
+    }
+     itemImg.src = loadImg.src;
+            loading();
+        }
+    </script>
+</body>
+</html>

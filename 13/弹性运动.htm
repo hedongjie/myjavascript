@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #box {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+      <input type="button" value="运动" id="btn" />
+    <div id="box"></div>
+  
+    <script type="text/javascript">
+        /*
+          //弹性但没有摩擦力
+          //ispeed += (500 - box.offsetLeft)/5 //500/50
+          速度+=(目标点-初始值)/系数
+          速度*=摩擦系数
+          //缓冲公式
+            var 速度 = (目标点 - 初始值)/系数；
+            iSpeed = iSpeed > 0 ?  Math.ceil(iSpeed) : Math.floor(iSpeed); //速度取整
+         */
+        var box = document.getElementById('box');
+        var ispeed = 0;
+        var timer = null;
+        var btn = document.getElementById('btn');
+        btn.onclick = function () {
+              clearInterval(timer);
+        timer = setInterval( function () {
+                ispeed += (500 - box.offsetLeft)/5 //500/50
+                ispeed *= 0.7;//摩擦力
+                //当速度和距离同时接近时清除定时器
+                if(Math.abs(ispeed) <=1 && Math.abs(500-box.offsetLeft) <=1 ) {
+                    clearInterval(timer);
+                    box.style.left = '500px';
+                    ispeed = 0;
+                    }
+                    console.log(box.style.left);
+            box.style.left = box.offsetLeft + ispeed + 'px';
+            },30)
+        }
+    </script>
+</body>
+</html>

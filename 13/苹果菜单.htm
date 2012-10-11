@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        #wrappper {
+            position:absolute;
+            bottom: 0;
+            text-align: center;
+            width: 100%;
+        }
+        input {
+            width: 200px;
+        }
+        #wrappper img {
+            width: 64px;
+
+        }
+    </style>
+</head>
+<body>
+    <input type="text" />
+    <input type="text" />
+    <input type="text" />
+    <input type="text" />
+    <input type="text" />
+    <input type="text" />
+    <div id="wrappper">
+    <img src="./img/1.png" alt="" />
+    <img src="./img/2.png" alt="" />
+    <img src="./img/3.png" alt="" />
+    <img src="./img/4.png" alt="" />
+    <img src="./img/5.png" alt="" />
+    <img src="./img/6.png" alt="" />
+    </div>
+    <script type="text/javascript">
+        var input = document.getElementsByTagName('input');
+        var wrapper = document.getElementById('wrappper');
+        var img = wrappper.getElementsByTagName('img');
+        document.onmouseover = function (event) {
+            var oEvent = event || window.event;
+            for (var i = 0; i < img.length; i++) {
+                var x = img[i].offsetLeft + wrappper.offsetLeft+ img[i].offsetWidth/2;
+                var y = img[i].offsetTop + wrappper.offsetTop + img[i].offsetWidth/2;
+                var a = oEvent.clientX - x;//a的宽
+                var b = oEvent.clientY - y;//b的宽
+                var c = Math.sqrt(Math.pow(a,2) + Math.pow(b,2));//c
+                var scale = 1-c/300;
+                if(scale < 0.5) {
+                    scale = 0.5;
+                }
+                 input[i].value = x+'--'+y +'---'+parseInt(c)+'\\'+scale;
+                img[i].style.width = scale * 128 + 'px';
+                img[i].style.height = scale * 128 + 'px';
+            };
+        }
+    </script>
+</body>
+</html>

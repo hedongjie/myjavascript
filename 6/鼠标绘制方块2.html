@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+.box { border: 1px solid red; position: absolute; }
+</style>
+
+</head>
+
+<body>
+    <script type="text/javascript">
+        document.onmousedown = function (event) {
+            var oEvent = event || window.event;
+            var createDiv = document.createElement('div');
+            createDiv.className = 'box';
+            var startX = oEvent.clientX;
+            var startY = oEvent.clientY;
+            document.body.appendChild(createDiv);
+            document.onmousemove = function (event) {
+                var oEvent = event || window.event;
+                createDiv.style.left = startX + 'px';
+                createDiv.style.top = startY + 'px';
+                countWidth =  Math.abs(oEvent.clientX - startX);
+                contentHeight = Math.abs(oEvent.clientY - startY);
+                createDiv.style.width = countWidth + 'px';
+                createDiv.style.height = contentHeight + 'px';
+                if(oEvent.clientX < startX) { //如果鼠标位置小于当前位置
+                    createDiv.style.left = oEvent.clientX + 'px';
+                }
+                if(oEvent.clientY < startY) {//Y轴
+                    createDiv.style.top = oEvent.clientY + 'px';
+                }
+            }
+            document.onmouseup = function () {
+                document.onmousemove = document.onmouseup = null;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #tab,#tab1 {
+            border: 1px solid #ccc;
+            width: 204px;
+        }
+        #tab div ,#tab1 div{
+            width: 200px;
+            height: 200px;
+            border: 1px solid #000;
+            display: none;
+        }
+        #tab .show,#tab1 .show {
+            display: block;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+        #list li,#list1 li {
+            float: left;
+            padding:10px;
+        }
+        #list .active,#list1 .active {
+            background: red;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="tab">
+    <ul id="list" >
+        <li class="active">第一个</li>
+        <li>第二个</li>
+        <li>第三个</li>
+    </ul>
+    <div class="show">123123</div>
+    <div>222222</div>
+    <div>444444</div>
+    </div>
+    
+    <script type="text/javascript">
+
+    </script>
+</body>
+</html>

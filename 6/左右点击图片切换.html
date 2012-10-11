@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+#img1 { margin: 100px 400px; }
+</style>
+<script>
+window.onload = function() {
+	var oImg = document.getElementById('img1');
+	var iNum = 1;
+	
+	oImg.onmousemove = function(ev) {
+		var ev = ev || event;
+		var disx = ev.clientX - getLeft(this);
+		if (disx < this.offsetWidth / 2) {
+			this.style.cursor = 'url("./images/arr_left.cur"),auto';
+			this.onclick = function() {
+				iNum--;
+				if (iNum < 1) {
+					iNum = 1;
+				}
+				this.src = iNum + '.jpg';
+			}
+		} else {
+			this.style.cursor = 'url("./images/arr_right.cur"),auto';
+			this.onclick = function() {
+				iNum++;
+				if (iNum > 6) {
+					iNum = 6;
+				}
+				this.src = './images/'+iNum + '.jpg';
+			}
+		}
+	}
+	
+	function getLeft(obj) {
+		var result = 0;
+		
+		while(obj) {
+			result += obj.offsetLeft;
+			obj = obj.offsetParent;
+		}
+		
+		return result;
+	}
+}
+</script>
+</head>
+
+<body>
+	<img src="./images/1.jpg" id="img1" />
+</body>
+</html>

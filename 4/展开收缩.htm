@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+    <style type="text/css">
+        div {
+            border: 1px solid #ccc;
+            width: 300px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<input type="button" value="展开" />
+<input type="button" value="收缩" />
+<div></div>
+<script type="text/javascript">
+    var str = '丹佛枪击案嫌疑犯揭秘：丹佛枪击案嫌疑犯揭秘：丹佛枪击案嫌疑犯揭秘：丹佛枪击案嫌疑犯揭秘：丹佛枪击案嫌疑犯揭秘：';
+            var arr = [];
+            var arr2 = []; 
+            var j = 0
+           
+            //alert(arr);
+            var onBtn = document.getElementsByTagName('input');
+            var getDiv = document.getElementsByTagName('div')[0];
+            var move = null
+            onBtn[0].onclick = function () { 
+                arr = str.split('');
+            clearInterval(move);
+            move = setInterval( function () {
+                getDiv.innerHTML += arr.shift();//第一个字
+                if(arr.length == 0 ) {
+                    clearInterval(move);
+                    }
+                    document.title = arr.length
+                },30);
+            }
+            onBtn[1].onclick = function () {
+                clearInterval(move);
+                move = setInterval( function () {
+                    arr2 = getDiv.innerHTML.split('');
+                       arr2.pop();
+                       getDiv.innerHTML = arr2.join('');
+                       if(arr2.length == 0) {
+                        clearInterval(move);
+                        }
+                        j++;
+                       document.title= j;
+                    },30);
+            }
+</script>
+</body>
+</html>

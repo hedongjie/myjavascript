@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+body {
+	margin: 0; padding: 0;
+	font: 12px "微软雅黑", Verdana, Geneva, sans-serif;
+}
+ul { list-style-type: none; }
+#contextmenu {
+	padding: 1px; display: none;
+	border: 1px solid #AEAEAE;
+	position: absolute; left: 100px; top: 100px;
+	background: url('./contextmenu.gif') repeat-y 0 #FFF;
+}
+#contextmenu li.line { border-top: 1px solid #F0F0F0; }
+#contextmenu li a {
+	padding: 0 30px 0 35px; display: block; overflow: hidden;
+	height: 26px; line-height: 26px; color: #333333;
+	text-decoration: none; cursor: default;
+}
+#contextmenu li a:hover {
+	background: #06F;
+	color: #FFF;
+}
+#contextmenu li a.ban {
+	color: #CCC;
+}
+</style>
+
+<script>
+window.onload = function() {
+	
+	var oUl = document.getElementById('contextmenu');
+	
+	document.oncontextmenu = function(ev) {
+		var ev = ev || event;
+		oUl.style.display = 'block';
+        var l = ev.clientX;
+        console.log(document.documentElement.clientWidth-oUl.offsetWidth);
+        if(l > document.documentElement.clientWidth-oUl.offsetWidth) {
+            oUl.style.left = document.documentElement.clientWidth-oUl.offsetWidth - 10 + 'px';
+            oUl.style.top = ev.clientY + 'px';
+        } else {
+		oUl.style.left = ev.clientX + 'px';
+		oUl.style.top = ev.clientY + 'px';
+    }
+		return false;
+	}
+	
+	document.onclick = function() {
+		oUl.style.display = 'none';
+	}
+	
+}
+</script>
+</head>
+
+<body>
+	<ul id="contextmenu">
+    	<li><a href="">查看</a></li>
+        <li><a href="">排序方式</a></li>
+        <li><a href="">刷新</a></li>
+        <li class="line"></li>
+        <li><a href="" class="ban">粘贴</a></li>
+        <li><a href="" class="ban">粘贴快捷方式</a></li>
+    </ul>
+</body>
+</html>

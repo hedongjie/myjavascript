@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+    <input type="text" />
+    <select id="" name="">
+    	<option value="+">+</option>
+    	<option value="-">-</option>
+    	<option value="*">*</option>
+    	<option value="/">/</option>
+    </select>
+    <input type="text" />
+    <input type="button" value="结果" />
+    <script type="text/javascript">
+        new function () {
+            var getInput = document.getElementsByTagName('input');
+            var selVal = document.getElementsByTagName('select')[0];
+            getInput[2].onclick = function () {
+                var firNum = Number(getInput[0].value);
+                var lasNum = Number(getInput[1].value);
+                if(isNaN(firNum) || isNaN(lasNum)) {
+                    alert('请输入数字');
+                    return;
+                }
+                //alert(selVal.value);
+                if(selVal.value == "+") {
+                    alert(firNum + lasNum);
+                }
+                 else if(selVal.value == "-") {
+                    alert(firNum - lasNum);
+                 }
+                 else if(selVal.value == "*") {
+                    alert(firNum * lasNum);
+                 }
+                 else {
+                    alert(firNum / lasNum);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

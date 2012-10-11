@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+
+        .register-title {
+            float: left;
+            font-size: 14px;
+            height: 30px;
+            text-align: right;
+            width: 103px;
+            line-height: 30px;
+        }
+        .register-text {
+            display: inline;
+            float: left;
+            margin-right: 5px;
+            width: 249px;
+            height: 30px;
+            border: 1px solid #DDD;
+            line-height: 30px;
+            margin-left: 5px;
+        }
+        .register-item input {
+              width: 230px;
+            height: 25px;
+            border: 0 none;
+            padding-left:5px;
+        }
+        .register-item {
+            clear: both;
+            overflow: hidden;
+            margin: 10px;
+        }
+        .register-item .register-radio {
+            width: 0;
+            height: 0;
+        }
+        .select-item {
+            float: left;
+            margin-right: 4px;
+        }
+        .select-input {
+            border: 0 none;
+        }
+        .select-item {
+            border: 1px solid #ccc;
+            width: 115px;
+            text-align: center;
+            line-height: 26px;
+        }
+        .select-item select {
+            width: 110px;
+            border: 0 none;
+            height: 20px;
+        }
+         .register-error, .right{
+            height: 25px;
+            padding: 0 10px;
+            color: #C00;
+            border: 1px solid #E5C3C4;
+            float: left;
+            font-size: 12px;
+            text-align:center;
+            line-height: 25px;
+            border-radius: 3px;
+            background: #FFEAEA;
+            margin: 2px 0  0 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<p style="width: 500px;">
+选做
+完整的用户表单校验，检查用户的各种输入是否合法
+用户名只能是字母、数字和下划线
+密码只能是字母，并且两次要相同
+邮箱
+QQ号只能是数字
+年龄只能是数字，并且大于12岁，小于100岁
+电话：区号-数字
+</p>
+    <form id="register" action="http://www.baidu.com/s" method="get">
+        <div id="register">
+            <div class="register-item">
+                <div class="register-title">我的邮箱：</div>
+                <div class="register-text"><input type="text" name="wd" /></div>
+                <div class="register-error"></div>
+            </div>
+             <div class="register-item">
+                 <div class="register-title">我的密码：</div>
+                <div class="register-text"><input type="password" /></div>
+                  <div class="register-error"></div>
+              </div>
+               <div class="register-item">
+                 <div class="register-title">重复密码：</div>
+                <div class="register-text"><input type="password" name="wd" /></div>
+                  <div class="register-error"></div>
+            </div>
+             <div class="register-item">
+                <div class="register-title">昵称：</div>
+                <div class="register-text"><input type="text" /></div>
+                  <div class="register-error"></div>
+              </div>
+              <!--
+             
+            <div class="register-item">
+                <div class="register-title">所在地：</div>
+                <div class="register-text select-input">
+                    <div class="select-item">
+                        <select id="" name=""><option value="">上海</option></select>
+                    </div>
+                     <div class="select-item">
+                          <select id="" name=""><option value="">天津</option></select></div>
+                    </div>
+                </div>-->
+             <div class="register-item">
+                 <div class="register-title">真实姓名：</div>
+                <div class="register-text"><input type="text" name="wd" /></div>
+                  <div class="register-error">帐号错误</div>
+            </div>
+            <div class="register-item">
+                 <div class="register-title">身份证号：</div>
+                 <div class="register-text"><input type="text" /></div>
+                   <div class="register-error">帐号错误</div>
+            </div>
+            <!--<div class="register-item">
+                 <div class="register-title">学校：</div>
+                <div class="register-text"><input type="text" /></div>
+                  <div class="register-error">帐号错误</div>
+            </div>
+            <div class="register-item">
+                 <div class="register-title">验证码：</div>
+                <div class="register-text"><input type="text" /></div>
+            </div>
+        </div>-->
+                <input id="sub" type="submit" value="提交" />
+    </form>
+    <script src="./chack.js" type="text/javascript"></script>
+</body>
+</html>

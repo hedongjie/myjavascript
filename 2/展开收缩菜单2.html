@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+body,ul,dl,dd{ margin:0; padding:0;}
+li { list-style:none;}
+#box { margin:50px auto; width:147px; padding:30px; border:1px solid #999}
+#content { padding:1px; background:#8c9cb5;}
+dl dt{ border-top:1px solid #a5b5ce; border-bottom:1px solid #738494; background:url(img2/miaoweiico.jpg) no-repeat 11px 5px; height:24px; line-height:24px; padding-left:30px; font-size:12px; color:#fff; cursor:pointer;}
+.list { display:none;}
+.list li{ height:22px; background:url(img2/miaoweili.jpg) repeat-x; border-top:1px solid #a5b5ce;}
+li a { text-decoration:none; display:block; background:url(img2/miaoweiico1.jpg) no-repeat 30px 5px; padding-left:50px; font-size:12px; color:#6b7b94; line-height:22px; height:22px;}
+li a:hover { text-decoration:underline;}
+.active .list{ display:block;}
+</style>
+</head>
+
+<body>
+<div id="box">
+	<div id="content">
+        <dl>
+            <dt>妙味首页</dt>
+            <dd>
+                <ul class="list">
+                    <li><a href="#">网站介绍</a></li>
+                    <li><a href="#">精品套餐</a></li>
+                    <li><a href="#">妙味特色</a></li>
+                    <li><a href="#">免费试听</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl>
+            <dt>关于妙味</dt>
+            <dd>
+                <ul class="list">
+                    <li><a href="#">团队介绍</a></li>
+                    <li><a href="#">妙味成员</a></li>
+                    <li><a href="#">想说的话</a></li>
+                    <li><a href="#">寻觅高手</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl>
+            <dt>培训套餐</dt>
+            <dd>
+                <ul class="list">
+                    <li><a href="#">CSS课程</a></li>
+                    <li><a href="#">PHP课程</a></li>
+                    <li><a href="#">AS3.0课程</a></li>
+                    <li><a href="#">课程说明</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl>
+            <dt>妙味特色</dt>
+            <dd>
+                <ul class="list">
+                    <li><a href="#">团队介绍</a></li>
+                    <li><a href="#">妙味成员</a></li>
+                    <li><a href="#">想说的话</a></li>
+                    <li><a href="#">寻觅高手</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl>
+            <dt>妙味资料库</dt>
+            <dd>
+                <ul class="list">
+                    <li><a href="#">CSS</a></li>
+                    <li><a href="#">PHP</a></li>
+                    <li><a href="#">javaScript</a></li>
+                    <li><a href="#">AS</a></li>
+                </ul>
+            </dd>
+        </dl>
+        <dl>
+            <dt>联系妙味</dt>
+            <dd>
+                <ul class="list">
+                    <li><a href="#">地址</a></li>
+                    <li><a href="#">电话</a></li>
+                    <li><a href="#">QQ</a></li>
+                    <li><a href="#">MSN</a></li>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+</div>
+<script type="text/javascript">
+    var getDt = document.getElementsByTagName('dt');
+    var getDd = document.getElementsByTagName('dd');
+    var power = true;
+    for (var i = 0; i < getDt.length; i++) {
+        getDt[i].index = i;
+        getDt[i].onclick = function () {
+            if(getDd[this.index].className == 'active') {
+                getDd[this.index].className = '';
+            } else {
+                //每一次都清空
+                for (var i = 0; i < getDd.length; i++) {
+                    getDd[i].className = '';
+                }
+                 getDd[this.index].className = 'active';
+            }
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #glass {
+            width: 100px;
+            height: 100px;
+            background: yellow;
+            opacity: 0.5;
+            filter:alpha(opacity=0.5);
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            z-index: 1;
+            border: 1px solid #ccc;
+        }
+        #small {
+            width: 180px;
+            height: 180px;
+            position: relative;
+            overflow: hidden;
+            margin: 100px;
+            cursor:move ;
+
+        }
+        .mark {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background:red;
+            z-index:2;
+            filter:alpha(opacity=0);
+            opacity:0;
+            top: 0;
+            left: 0;
+        }
+        #imgshow {
+            width:500px; 
+            height:500px; 
+            overflow:hidden; 
+            position:absolute; 
+            left:300px; 
+            top:50px; 
+            display: none;
+            border: 1px solid #ccc;
+        }
+        #img {
+            left: 0;
+            top: 0;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="small">
+        <img src="./b2.jpg" alt="" />
+        <span id="glass"></span>
+        <div class="mark"></div>
+    </div>
+    <div id="imgshow">
+    <img id="img" src="./b1.jpg" alt="" />
+    </div>
+    <script type="text/javascript">
+        function imgShow() {
+            var glass = document.getElementById('glass');
+            var small = document.getElementById('small');
+            var img = document.getElementById('img');
+            var imgDis = document.getElementById('imgshow');
+            small.onmouseover = function () {
+                imgshow.style.display = 'block';
+                glass.style.display = 'block';
+            } 
+            small.onmouseout = function () {
+                imgshow.style.display = 'none';
+                glass.style.display = 'none';
+            }
+            small.onmousemove = function(event) {
+              
+                var oEvent = event || window.event;
+                var L =  oEvent.clientX - small.offsetLeft-glass.offsetWidth/2
+                var T = oEvent.clientY - small.offsetTop - glass.offsetHeight/2
+                if(L < 0) {
+                    L = 0;
+                } else if(L >small.offsetWidth - glass.offsetWidth) {
+                    L = small.offsetWidth - glass.offsetWidth;
+                }
+                if(T < 0) {
+                    T = 0;
+                } else if(T >small.offsetHeight - glass.offsetHeight) {
+                    T = small.offsetHeight - glass.offsetHeight;
+                }
+                //鼠标居中
+                glass.style.left = L + 'px';
+                glass.style.top = T + 'px';
+                //比例
+                var balanceX = L/(small.offsetWidth - glass.offsetWidth);
+                var balanceY = T/(small.offsetHeight - glass.offsetHeight);
+                img.style.top = -balanceY * (img.offsetHeight - imgshow.offsetHeight) + 'px';
+                img.style.left = -balanceX * (img.offsetWidth - imgshow.offsetWidth) + 'px';
+            }
+
+        }
+imgShow();
+    </script>
+</body>
+</html>

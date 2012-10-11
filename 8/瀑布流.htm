@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title></title>
+    <script src="./ajax.js" type="text/javascript"></script>
+    <style type="text/css">
+        #list {
+            width: 800px;
+            padding: 0;
+            margin: 160px auto 0px;
+            list-style-type: none;
+            overflow: hidden;
+            
+        }
+        #list li {
+            float: left;
+            margin-left: 15px;
+        }
+        #list li div {
+       padding: 10px; margin-bottom: 10px; width: 225px; border: 1px solid #CCC; 
+   }
+    </style>
+</head>
+<body>
+    <ul id="list">
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <script type="text/javascript">
+        var getList = document.getElementById('list').getElementsByTagName('li');
+        var p = 3;
+        var iBtn = true;
+        ajax('get', '/xampp/project/index.php', 'm=pic&n=6&p=1', function (data) {
+                var json = eval('('+data+')');
+                for (var i = 0; i < json.num; i++) {
+                var item = document.createElement('div');
+                var oImg = document.createElement('img');
+                oImg.src = json.data[i].url;
+                item.appendChild(oImg);
+                getList[i%3].appendChild(item);
+                };
+        });
+window.onscroll = function () {
+    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    var MaxHeight = scrollTop + document.documentElement.clientHeight;
+    for (var i = 0; i < getList.length; i++) {
+        var minHeight = getPost(getList[i]) + getList[i].offsetHeight;
+        if(minHeight < MaxHeight) {
+            if(iBtn) { //点击
+                iBtn = false; //进来就false
+           ajax('get', '/xampp/project/index.php', 'm=pic&n=3&p=' + p, function (data) {
+                   var json = eval('('+data+')');
+                   if(data.num == 0) {
+                    return ;
+                   }
+                for (var i = 0; i < json.num; i++) {
+                var item = document.createElement('div');
+                var oImg = document.createElement('img');
+                oImg.src = json.data[i].url;
+                item.appendChild(oImg);
+                getList[i].appendChild(item);
+                //console.log(getList[i]);
+                }
+                p++;
+                iBtn = true;
+                });
+            }
+        }
+    }
+}
+function getPost (obj) {
+    var result = 0;
+    while(obj) {
+        result +=obj.offsetTop;
+        obj = obj.offsetParent;
+    }
+    return result;
+}
+    </script>
+</body>
+</html>

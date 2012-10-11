@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+    <style type="text/css">
+        #back {
+            position: fixed;
+            _position: absolute;
+            bottom: 10px;
+            right: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <li>111111</li>
+    <a id="back" href="javascript:;">返回顶部</a>
+    
+    <script type="text/javascript">
+        new function () {
+            var getBack = document.getElementById('back');
+            var move = null;
+            var power = true;
+            getBack.onclick = function () {
+             var scrollTop = document.documentElement.scrollTop || document.body.scrollTop; 
+             move =setInterval(function () {
+                       if(scrollTop == 0) {
+                        clearInterval(move);
+                        }
+                         power = true;
+                    document.body.scrollTop = document.documentElement.scrollTop -=10;
+                        },10);
+            }
+            window.onscroll = function () {
+                if(!power) {
+                    clearInterval(move);
+                }
+                power = false;
+                var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                document.title = scrollTop;
+                if(scrollTop == 0) {
+                    clearInterval(move);
+                    getBack.style.display = 'none';
+                } else{ 
+                    getBack.style.display = 'block';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

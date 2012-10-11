@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+    <style type="text/css">
+        .content {
+            position:relative;
+            height: 415px;
+            overflow: hidden;
+        }
+        .content-item {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            position:absolute;
+        }
+        .content-item img {
+            width: 120px;
+            height: 80px;
+        }
+        .up,
+        .down {
+            display: block;
+            width: 120px;
+            height: 30px;
+            background: red;
+            text-align: center;
+            line-height: 30px;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <h2>妙味课堂</h2>
+        <a class="up" href="javascript:;">向上</a>
+        <div class="content">
+        <ul class="content-item">
+        	<li><a href="#"><img src="./images/1.jpg" alt="" /></a></li>
+        	<li><a href="#"><img src="./images/2.jpg" alt="" /></a></li>
+        	<li><a href="#"><img src="./images/3.jpg" alt="" /></a></li>
+        	<li><a href="#"><img src="./images/4.jpg" alt="" /></a></li>
+            <li><a href="#"><img src="./images/3.jpg" alt="" /></a></li>
+        	<li><a href="#"><img src="./images/4.jpg" alt="" /></a></li>
+        </ul>
+        </div>
+        <a class="down" href="javascript:;">向下</a>
+        
+    </div>
+    <script type="text/javascript">
+        console.time("结束");
+        new function() {
+           
+    var getUpDown = document.getElementsByTagName('a');
+    var getCont = document.getElementsByTagName('ul')[0];
+    var getImg = getCont.getElementsByTagName('img');
+	var getContItem = getCont.getElementsByTagName('li');
+	getCont.innerHTML += getCont.innerHTML;
+	getCont.style.height = getContItem[0].offsetHeight * getContItem.length + 'px';
+	var getUp = getUpDown[0];
+	var getDown = getUpDown[getUpDown.length-1];
+	var move = null;
+    var iNum = 0;
+    var power = false;
+
+    //自动向上
+    function autoMove(target) {
+     move = setInterval(function () {
+            iNum -= target;
+			getCont.style.top = iNum + 'px';
+			document.title = getCont.offsetTop;
+			if (getCont.offsetTop < - getCont.offsetHeight / 2) { //-504滚动的躏小于整体ul的距离时拉回来。。
+				iNum = 0;
+            } else if(getCont.offsetTop > 0 ) {
+                iNum = - getCont.offsetHeight / 2;
+            }
+            },40);
+    }
+    autoMove(5);
+	getUp.onmousedown = function() {
+		clearInterval(move);
+        autoMove(5);
+	}
+	getUp.onmouseup = function() {
+		clearInterval(move);
+	}
+	getDown.onmousedown = function() {
+        clearInterval(move);
+        autoMove(-5);
+    }
+    getDown.onmouseup = function () {
+		clearInterval(move);
+    }
+    //扩展
+    for (var i = 0; i < getImg.length; i++) {
+        getImg[i].onmouseover = function () {
+            clearInterval(move);
+        }
+        getImg[i].onmouseout = function () {
+            if(!power) {
+                autoMove(5);
+                power= true;
+            }else {
+                clearInterval(move);
+                power = false;
+                }
+        }
+    };
+}
+</script>
+</body>
+</html>

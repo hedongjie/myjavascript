@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+	<span>1分30秒</span>
+</body>
+</html>
+
+<script>
+
+var oSpan=document.getElementsByTagName('span')[0];
+
+var t=90;
+
+var m=parseInt(t/60);
+
+var s=t%60;
+
+var timer=null;
+
+timer=setInterval(function(){
+	t--;
+	var m=parseInt(t/60);
+	var s=t%60;
+	
+	oSpan.innerHTML=m+'分'+s+'秒';
+	
+	if(t==0){
+	
+		clearInterval(timer);
+		
+	}
+	
+},100);
+
+</script>

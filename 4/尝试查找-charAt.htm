@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+    
+    </style>
+</head>
+<body>
+    <input type="text" />
+    <input type="text" />
+<input type="button" value="查找" />
+    <script type="text/javascript">
+    //查找某个字在文本中出现的次数，分别在第几位
+    //1.首先得输入文本
+    //2.然后从第头开始查找'某个字'
+    //3.如果找到了就把这个字存到数组里面。
+    
+
+
+    var getInput = document.getElementsByTagName('input');
+    var arr = [];
+    getInput[2].onclick = function () {
+        var getTxt = getInput[0].value;
+        var inpTxt = getInput[1].value;
+        for (var i = 0; i < getTxt.length; i++) {
+            //alert(inpTxt);
+            if(getTxt.charAt(i) == inpTxt){//如果等于a了则记得一个i也就是位置
+                arr.push(i);
+            }
+        };
+        //alert(arr);
+        alert(inpTxt+"出现了"+arr.length+"次,分别在"+arr+"位");
+        arr.length = 0;
+    }
+    </script>
+</body>
+</html>

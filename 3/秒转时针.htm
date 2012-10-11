@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        .yellow{
+            width:0;
+            height:10px;
+            background: yellow;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <div class="yellow"></div>
+    <script type="text/javascript">
+        var time = 190;
+        var getDiv = document.getElementsByTagName('div');
+        var getcont = getDiv[1];
+        //alert(getcont);
+        timer = setInterval(function () {
+                time--;
+                var one= parseInt(time/60)
+                var two= parseInt(time%60);
+                if(one == 0 && two == 0 ) {
+                    clearInterval(timer);
+                }
+                getDiv[0].innerHTML = one +'分' + two + '秒';
+                if(getcont.currentStyle){
+                //alert(getcont.currentStyle.width);
+                var setWidth = parseInt(getcont.currentStyle.width);
+                }else {
+                var setWidth = parseInt(getComputedStyle(getcont,false).width);
+                }
+                setWidth ++;
+                getcont.style.width =  setWidth+ 'px';
+                //alert(getcont.style.width);
+                if(setWidth == time) {
+                    getcont.style.background = 'red';
+                }
+        },60)
+    </script>
+</body>
+</html>

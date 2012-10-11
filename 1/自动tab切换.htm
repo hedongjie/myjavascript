@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        #tabShow {
+            border: 1px solid #ccc;
+            width: 400px;
+            margin: 0 auto;
+            border-radius:3px;
+        }
+        #tabShow div {
+            height: 300px;
+            display: none;
+        }
+        .menu {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            border-bottom: 1px solid #ccc;
+        }
+        .menu li {
+            float: left;
+            height: 28px;
+            line-height: 28px;
+            padding: 0 15px;
+            border-right: 1px solid #ccc;
+        }
+        .menu li a {
+            text-decoration: none;
+            color: #000;
+
+        }
+        .up,
+        .down {
+            padding: 0 10px;
+            line-height: 28px;
+        }
+        .menu .active {
+            background: rgb(252,255,244); /* Old browsers */
+            background: -moz-linear-gradient(top,  rgba(252,255,244,1) 0%, rgba(223,229,215,1) 40%, rgba(179,190,173,1) 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,255,244,1)), color-stop(40%,rgba(223,229,215,1)), color-stop(100%,rgba(179,190,173,1))); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top,  rgba(252,255,244,1) 0%,rgba(223,229,215,1) 40%,rgba(179,190,173,1) 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top,  rgba(252,255,244,1) 0%,rgba(223,229,215,1) 40%,rgba(179,190,173,1) 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top,  rgba(252,255,244,1) 0%,rgba(223,229,215,1) 40%,rgba(179,190,173,1) 100%); /* IE10+ */
+            background: linear-gradient(to bottom,  rgba(252,255,244,1) 0%,rgba(223,229,215,1) 40%,rgba(179,190,173,1) 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=0 ); /* IE6-9 */
+            font-weight: bold;
+        }
+        #tabShow .show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="tabShow">
+        <ul class="menu">
+            <li class="active"><a href="javascript:;">充值</a></li>
+            <li><a href="javascript:;">旅行</a></li>
+            <li><a href="javascript:;">彩票</a></li>
+            <li><a href="javascript:;">游戏</a></li>
+             <a class="up" href="javascript:;">上一页</a>
+             <a class="down" href="javascript:;">下一页</a>
+        </ul>
+       
+        <div class="show">1111111111111111</div>
+        <div>2222222222222222</div>
+        <div>333333333333333</div>
+        <div>4444444444444444444</div>
+       
+    </div>
+    <script type="text/javascript">
+        new function () {
+            var getMenu = document.getElementsByTagName('ul')[0];
+            var getUpDown = getMenu.getElementsByTagName('a'); //上一页。下一页
+            var getUp = getUpDown[4];
+            var getDown = getUpDown[5];
+           
+            var getItem = getMenu.getElementsByTagName('li');
+            var getWrap = document.getElementById('tabShow')
+            var getCont =getWrap.getElementsByTagName('div');
+            var iNum = 0;
+            var move = null;
+            //选项卡
+            for (var i = 0; i < getItem.length; i++) {
+                getItem[i].index = i;
+                getItem[i].onclick = function () {
+                    iNum = this.index; //为什么放在下面不行？
+                    tabCuto();
+                }
+            }
+            //自动执行
+            function autoPlay () {
+             move = setInterval(function () {
+                        iNum++;
+                        iNum %= getItem.length;
+                    tabCuto ();
+                    },1000);
+            }
+
+            autoPlay();//自动运行一次
+             getUp.onclick = function () {
+                        iNum--;
+                        iNum %= getItem.length;
+                        if(iNum == -1) {
+                            iNum =getItem.length-1; //TODO 改成3也可这样更智能些
+
+                        }
+                        tabCuto();
+             }
+              getDown.onclick = function () {
+                        iNum++;
+                        iNum %= getItem.length;
+                   tabCuto();
+              }
+
+              //tab切换
+              function tabCuto () {
+               for (var i = 0; i < getItem.length; i++) {
+                        document.title = iNum;
+                        getItem[i].className = '';
+                        getCont[i].className = '';
+                        }
+                        getItem[iNum].className = 'active';
+                        getCont[iNum].className = 'show';
+              }
+
+            getWrap.onmouseover = function () {
+                clearInterval(move);
+            }
+            getWrap.onmouseout = function () {
+                autoPlay();
+            }
+        }
+    </script>
+</body>
+</html>

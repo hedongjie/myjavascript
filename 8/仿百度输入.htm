@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title></title>
+    <script src="./ajax.js" type="text/javascript"></script>
+    <style type="text/css">
+        #search {
+            width: 350px;
+            border: 1px solid #ccc;
+            height: 25px;
+        }
+        #list {
+            display: none;
+            
+        }
+    </style>
+</head>
+<body>
+    <input id="search" type="text" />
+    <ul id="list">
+    </ul>
+    <script type="text/javascript">
+            var search = document.getElementById('search');
+            search.onkeyup = function () {
+                ajax('jsonp', 'http://suggestion.baidu.com/su', 'wd='+encodeURI(this.value) + '&cb=s&t='+new Date().getTime());
+            }
+ function s (data){
+     var list = document.getElementById('list');
+     list.innerHTML = '';
+                if(data.s.length) {
+                    list.style.display = 'block';
+                    for (var i = 0; i < data.s.length; i++) {
+                        var item = document.createElement('li');
+                        item.innerHTML = data.s[i];
+                        list.appendChild(item);
+                    }
+                } else {
+                    list.style.display = 'none';
+                }
+            }
+    </script>
+</body>
+</html>

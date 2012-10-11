@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+    <style type="text/css">
+        #ad {
+            width: 300px;
+            height: 200px;
+            background: green;
+            position: absolute;
+            left: 40%;
+            top: -180px;
+        }
+    </style>
+</head>
+<body>
+    <div id="ad"></div>
+    <script type="text/javascript">
+        window.onload = function () {
+            var timer = null;
+            var iNum = -180;
+            var getAd = document.getElementById('ad');
+            setTimeout(show,2000);
+            function show() {
+                timer =setInterval (function () {
+                        iNum +=10;
+                        getAd.style.top = iNum + 'px' ;
+                        if(iNum == 100) {
+                        clearInterval (timer);
+                        setTimeout(function () {
+                            timer = setInterval(function () {
+                                iNum -=10;
+                                if(iNum == -180){
+                                clearInterval(timer);
+                                }
+                                getAd.style.top = iNum +'px';
+                                },30);
+                            },2000);
+                        }
+                        },30);
+            }
+        }
+    </script>
+</body>
+</html>

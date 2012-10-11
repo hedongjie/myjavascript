@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+body { margin:0; }
+#mark { background: #000; opacity: 0.3; position: absolute; left: 0; top: 0; }
+#box { width: 300px; height: 200px; background: #FFF; border: 1px solid #666; position: absolute; padding: 10px;background: #eeffcc; }
+#close { position: absolute; right: 5px; top: 5px; cursor: pointer; }
+</style>
+</head>
+
+<body style="height: 2000px;">
+<input type="button" value="登陆" id="btn" />
+<!--
+	<div id="mark"></div>
+    <div id="box">
+    	<span id="close">×</span>
+    </div>
+    -->
+    <script type="text/javascript">
+        var onBtn = document.getElementById('btn');
+        onBtn.onclick = function () {
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+             var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
+            var creWrap = document.createElement('div');
+            creWrap.id = 'mark';
+
+            //取最大值
+            creWrap.style.width = Math.max(document.documentElement.clientWidth,document.body.offsetWidth) + 'px';
+            creWrap.style.height = Math.max(document.documentElement.clientHeight,document.body.offsetHeight) + 'px';
+            document.body.appendChild(creWrap);
+            var creBox = document.createElement('div');
+            creBox.id = 'box';
+
+            //必须放在前面
+            creWrap.appendChild(creBox);
+            creBox.style.left = (document.documentElement.clientWidth - creBox.offsetWidth) / 2 + scrollLeft + 'px';
+            creBox.style.top = (document.documentElement.clientHeight - creBox.offsetHeight) / 2 + scrollTop  + 'px';
+            window.onscroll = function () {
+             var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+             var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
+            creBox.style.top = (document.documentElement.clientHeight - creBox.offsetHeight) / 2 + scrollTop  + 'px';
+        }
+        }
+       
+
+    </script>
+</body>
+</html>
