@@ -54,10 +54,6 @@
             timer = 0;//清空
             getTab.onmouseover = function () {
                 clearInterval(timer);
-            }
-             getTab.onmouseout = function () {
-                 autoPlay();
-            }
             for (var i = 0; i < getItem.length; i++) {
                getItem[i].index = i;
                getItem[i].onclick = function () { //点击事件
@@ -75,7 +71,6 @@
             }
             function autoPlay () {
             timer = setInterval(function () {
-                       iNum ++;
                        if(iNum == getItem.length) {
                         iNum = 0;
                         }
